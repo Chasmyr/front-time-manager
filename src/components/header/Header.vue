@@ -18,7 +18,7 @@ export default {
             </div>
         </div>
         <div class="right-header">
-            <div class="user-acc">
+            <div class="user-acc text-xl font-medium text-pink-900">
                 <span>Username</span>
             </div>
             <div class="user-logo">
