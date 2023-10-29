@@ -11,8 +11,8 @@ export default {
   },
   methods: {
     changeContent(newContent) {
-        this.currentContent = newContent
-        console.log(this.currentContent)
+        this.$store.dispatch('changeContent', {newContent: newContent})
+        console.log(this.$store.state.currentContent)
     }
   }
 }
