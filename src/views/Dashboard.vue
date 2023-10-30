@@ -19,7 +19,7 @@ export default {
 <template>
     <div class="wrapper">
         <Header />
-        <div class="content">
+        <div class="content flex">
             <Sidebar />
             <div v-if="isDashboard">
                 <UserDashboard />

@@ -5,15 +5,15 @@ export default {
     components: {},
     data() {
         return {
-            people
         }
     }
 }
-
 </script>
 
 <template>
-    <h1>test</h1>
+    <div class="w-32 bg-red-600 h-32">
+        
+    </div>
 </template>
 
 <style>
