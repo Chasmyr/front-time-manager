@@ -2,13 +2,14 @@
 
 import Header from '../components/header/Header.vue';
 import Sidebar from '../components/sidebar/Sidebar.vue';
+import UserDashboard from '../components/userDashboard/userDashboard.vue';
 
 export default {
   name: 'Dashboard',
-  components: { Header, Sidebar },
-  methods: {
-    test() {
-        console.log("i")
+  components: { Header, Sidebar, UserDashboard },
+  computed: {
+    isDashboard() {
+        return this.$store.state.currentContent === "dashboard" ? true : false
     }
   }
 }
@@ -19,9 +20,9 @@ export default {
     <div class="wrapper">
         <Header />
         <div class="content">
-            <Sidebar @click="test"/>
-            <div>
-
+            <Sidebar />
+            <div v-if="isDashboard">
+                <UserDashboard />
             </div>
         </div>
     </div>
@@ -29,6 +30,6 @@ export default {
 
 <style>
 .wrapper {
-    width: 1340px;
+    width: 1000px;
 }
 </style>
