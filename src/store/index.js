@@ -3,7 +3,19 @@ import { createStore } from "vuex";
 export default createStore({
     state () {
         return {
-            currentContent: "dashboard"
+            currentContent: "dashboard",
+            token: null,
+            isAuth: false,
+            currUser: {
+                "id": 1,
+                "name": "Filip",
+                "email": "test@test.com",
+                "role": "general_manager",
+                "clock": {
+                    "start": "2023-10-26 08:00",
+                    "isClocking": false
+                }
+            }
         }
     },
     mutations: {

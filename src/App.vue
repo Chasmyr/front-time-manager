@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <Dashboard />
+  <router-view />
 </template>
 
 <style scoped>
