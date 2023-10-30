@@ -5,7 +5,6 @@ export default {
     components: {},
     data() {
         return {
-            people
         }
     }
 }

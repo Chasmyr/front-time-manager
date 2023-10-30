@@ -22,7 +22,7 @@ export default {
         <div class="content">
             <Sidebar />
             <div v-if="isDashboard">
-                <UserDashboard />
+              <UserDashboard />
             </div>
         </div>
     </div>
