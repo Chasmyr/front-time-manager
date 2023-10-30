@@ -8,7 +8,7 @@ export default createStore({
             isAuth: true,
             currUser: {
                 "id": 1,
-                name: "test",
+                name: "Username de test",
                 "email": "test@test.com",
                 "role": "general_manager"
             }

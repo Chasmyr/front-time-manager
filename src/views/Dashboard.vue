@@ -6,7 +6,7 @@ import UserDashboard from '../components/userDashboard/userDashboard.vue';
 
 export default {
   name: 'Dashboard',
-  components: { Header, Sidebar, UserDashboard },
+  components: { Header, Sidebar, UserDashboard, UserDashboard },
   computed: {
     isDashboard() {
         return this.$store.state.currentContent === "dashboard" ? true : false

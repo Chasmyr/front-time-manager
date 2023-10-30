@@ -2,7 +2,19 @@
 
 export default {
   name: 'Header',
-  components: {}
+  components: {},
+  data() {
+    return {
+        username: this.$store.state.currUser.name != null ? this.$store.state.currUser.name : 'Se connecter'
+    }
+  },
+  mounted() {
+    if(this.$router.currentRoute._value.path != '/login' && !this.$store.state.isAuth) {
+        this.$router.push('/login')
+    } else if(this.$router.currentRoute._value.path == '/login' && this.$store.state.isAuth) {
+        this.$router.push('/')
+    }
+  }
 }
 
 </script>
@@ -14,12 +26,12 @@ export default {
                 <span>G</span>
             </div>
             <div>
-                <h1 class="m-0 text-3xl font-normal">Dashboard</h1>
+                <h1 class="m-0 text-3xl font-normal text-white">Dashboard</h1>
             </div>
         </div>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center" v-if="this.$router.currentRoute._value.path != '/login'">
             <div class="text-2xl mr-2 font-normal cursor-pointer">
-                <span>Username</span>
+                <span>{{ username }}</span>
             </div>
             <div class="flex items-center [&>*]:w-9 [&>*]:h-9 [&>*]:cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
