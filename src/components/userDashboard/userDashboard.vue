@@ -1,8 +1,10 @@
 <script>
+import Clock from '../clock/Clock.vue';
+
 
 export default {
     name: 'UserDashboard',
-    components: {},
+    components: { Clock },
     data() {
         return {
         }
@@ -11,8 +13,8 @@ export default {
 </script>
 
 <template>
-    <div class="w-32 bg-red-600 h-32">
-        
+    <div class="w-full">
+        <Clock />
     </div>
 </template>
 

@@ -7,7 +7,8 @@ export default {
       'secondary': '#B0D2C1',
       'tertiary': '#26221F',
       'smallbg': '#C4C3AA',
-      'second-text': '#020617'
+      'second-text': '#020617',
+      'clockbg': '#BAB6C1'
     },
   },
   plugins: [],
