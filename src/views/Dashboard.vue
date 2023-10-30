@@ -21,7 +21,7 @@ export default {
         <Header />
         <div class="content flex">
             <Sidebar />
-            <div v-if="isDashboard" class="w-full">
+            <div v-if="isDashboard" class="w-full mt-14">
                 <UserDashboard />
             </div>
         </div>

@@ -1,10 +1,12 @@
 <script>
 import Clock from '../clock/Clock.vue';
-
+import Summary from '../summary/Summary.vue';
+import Random from '../random/Random.vue'
+import Workingtime from '../workingtime/Workingtime.vue';
 
 export default {
     name: 'UserDashboard',
-    components: { Clock },
+    components: { Clock, Summary, Random, Workingtime },
     data() {
         return {
         }
@@ -13,8 +15,13 @@ export default {
 </script>
 
 <template>
-    <div class="w-full">
+    <div class="w-full flex justify-between gap-6">
+        <Summary />
+        <Random />
         <Clock />
+    </div>
+    <div class="w-full flex justifybetween gap-6">
+        <Workingtime />
     </div>
 </template>
 

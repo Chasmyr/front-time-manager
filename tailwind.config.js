@@ -8,7 +8,9 @@ export default {
       'tertiary': '#26221F',
       'smallbg': '#C4C3AA',
       'second-text': '#020617',
-      'clockbg': '#BAB6C1'
+      'clockbg': '#BAB6C1',
+      'summarybg': '#B9C1B6',
+      'gray': '#333333'
     },
   },
   plugins: [],

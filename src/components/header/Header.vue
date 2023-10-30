@@ -22,7 +22,7 @@ export default {
 <template>
     <header class="flex justify-between items-center max-w-7xl m-8">
         <div class="flex justify-between items-center"> 
-            <div class="text-primary flex justify-center items-center rounded-full mr-8 p-2 text-3xl font-semibold w-11 h-11 border border-solid">
+            <div class="text-primary flex justify-center items-center rounded-full mr-12 p-2 text-3xl font-semibold w-11 h-11 border border-solid">
                 <span>G</span>
             </div>
             <div>

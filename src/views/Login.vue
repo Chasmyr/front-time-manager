@@ -35,7 +35,7 @@ export default {
     <div class="wrapper">
         <Header />
         <div class="flex justify-center text-slate-950">
-            <div class="w-full bg-secondary rounded-lg md:mt-8 sm:max-w-md xl:p-0">
+            <div class="w-full bg-secondary rounded-3xl md:mt-8 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-second-text">
                         Sign in to your account
