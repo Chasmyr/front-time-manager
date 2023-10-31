@@ -5,7 +5,7 @@ export default createStore({
         return {
             currentContent: "dashboard",
             token: null,
-            isAuth: false,
+            isAuth: true,
             currUser: {
                 "id": 1,
                 "name": "Filip",
@@ -21,11 +21,17 @@ export default createStore({
     mutations: {
         setCurrentContent (state, payload) {
             state.currentContent = payload.newContent
+        },
+        setUser (state, payload) {
+            state.isAuth = true
         }
     },
     actions: {
         changeContent ({ commit },payload) {
             commit('setCurrentContent', payload)
+        },
+        changeUser ({ commit }, payload) {
+            commit('setUser', payload)
         }
     }
 })

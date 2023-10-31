@@ -8,7 +8,7 @@ export const ApiGet = async (url) => {
 
 export const ApiPost = async (url, body) => {
     return await axios.post(`http://localhost:4000/api${url}`, body)
-    .then(res => res.data)
+    .then(res => { return res })
     .catch(err => console.log(err))
 }
 

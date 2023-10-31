@@ -13,15 +13,19 @@ export default {
         }
     },
     methods: {
-        signIn() {
+        async signIn() {
             if(this.email.length > 0 && this.password.length > 0) {
                 let body = {
                     email: this.email,
                     password: this.password
                 }
-                let res = ApiPost('/users/login', body)
-                if (res.status === 'ok') {
+                let res = await ApiPost('/users/login', body)
+            
+                if (res.status === 200) {
                     //dispatch les infos users que je veux ici
+                    let userData = res.data
+                    userData["isAuth"] = true
+                    this.$store.dispatch('changeUser', {payload: userData})
                 }
             }
         }
