@@ -5,12 +5,16 @@ export default createStore({
         return {
             currentContent: "dashboard",
             token: null,
-            isAuth: true,
+            isAuth: false,
             currUser: {
                 "id": 1,
                 "name": "Filip",
                 "email": "test@test.com",
-                "role": "general_manager"
+                "role": "general_manager",
+                "clock": {
+                    "start": "2023-10-26 08:00",
+                    "isClocking": false
+                }
             }
         }
     },

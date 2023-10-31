@@ -20,7 +20,7 @@ export default {
         <Random />
         <Clock />
     </div>
-    <div class="w-full flex justifybetween gap-6">
+    <div class="w-full flex justifybetween gap-6 mt-6">
         <Workingtime />
     </div>
 </template>

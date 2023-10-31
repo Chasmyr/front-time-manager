@@ -10,7 +10,9 @@ export default {
       'second-text': '#020617',
       'clockbg': '#BAB6C1',
       'summarybg': '#B9C1B6',
-      'gray': '#333333'
+      'gray': '#333333',
+      'graph-bg': '#BFB293',
+      'graph-bg-2': '#C4C3AA'
     },
   },
   plugins: [],
