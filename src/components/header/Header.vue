@@ -1,5 +1,7 @@
 <script>
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'Header',
   components: {},
@@ -12,6 +14,11 @@ export default {
         passwordForm: ''
     }
   },
+  computed: {
+    ...mapState([
+        'isAuth'
+    ])
+  },
   mounted() {
     if(this.$router.currentRoute._value.path != '/login' && !this.$store.state.isAuth) {
         this.$router.push('/login')
@@ -22,7 +29,7 @@ export default {
   methods: {
     updateUser() {
         let newData = {'username' : this.usernameForm, 'email' : this.emailForm,'password' : this.password}
-        console.log(newData)
+
     }
   }
 }

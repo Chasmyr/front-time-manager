@@ -22,7 +22,7 @@ export default createStore({
         setCurrentContent (state, payload) {
             state.currentContent = payload.newContent
         },
-        setUser (state, payload) {
+        setSignIn (state, payload) {
             state.isAuth = true
             state.currUser.id = payload.id
             state.currUser.username = payload.username 
@@ -34,8 +34,8 @@ export default createStore({
         changeContent ({ commit },payload) {
             commit('setCurrentContent', payload)
         },
-        changeUser ({ commit }, payload) {
-            commit('setUser', payload)
+        signIn ({ commit }, payload) {
+            commit('setSignIn', payload)
         }
     }
 })
