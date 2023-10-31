@@ -20,7 +20,7 @@ export default {
                     email: this.email,
                     password: this.password
                 }
-                let res = await ApiPost('/users/login', body)
+                let res = await ApiPost('/users/sign_in', body)
                 
                 console.log(res)
 
@@ -28,7 +28,8 @@ export default {
                     //dispatch les infos users que je veux ici
                     let userData = res.data
                     userData["isAuth"] = true
-                    return this.$store.dispatch('signIn', userData)
+                    await this.$store.dispatch('signIn', userData)
+                    console.log(this.$store.state.currUser.username)
                 }
             }
         }

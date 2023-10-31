@@ -7,17 +7,12 @@ export default {
   components: {},
   data() {
     return {
-        username: this.$store.state.currUser.name != null ? this.$store.state.currUser.name : 'Se connecter',
+        username: this.$store.state.currUser.username != null ? this.$store.state.currUser.username : 'Se connecter',
         modalOpen: false,
         usernameForm: '',
         emailForm: '',
         passwordForm: ''
     }
-  },
-  computed: {
-    ...mapState([
-        'isAuth'
-    ])
   },
   mounted() {
     if(this.$router.currentRoute._value.path != '/login' && !this.$store.state.isAuth) {
