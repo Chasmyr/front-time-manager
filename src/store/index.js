@@ -5,10 +5,10 @@ export default createStore({
         return {
             currentContent: "dashboard",
             token: null,
-            isAuth: true,
+            isAuth: false,
             currUser: {
                 "id": 1,
-                "name": "Filip",
+                "username": "Filip",
                 "email": "test@test.com",
                 "role": "general_manager",
                 "clock": {
@@ -24,6 +24,10 @@ export default createStore({
         },
         setUser (state, payload) {
             state.isAuth = true
+            state.currUser.id = payload.id
+            state.currUser.username = payload.username 
+            state.currUser.email = payload.email
+            state.token = payload.token
         }
     },
     actions: {

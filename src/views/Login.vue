@@ -26,6 +26,7 @@ export default {
                     let userData = res.data
                     userData["isAuth"] = true
                     this.$store.dispatch('changeUser', {payload: userData})
+                    console.log(userData)
                 }
             }
         }
