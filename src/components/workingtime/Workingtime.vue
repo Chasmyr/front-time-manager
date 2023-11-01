@@ -39,6 +39,7 @@ export default {
 }
 
 // logique du composant => un select avec une valeur par défault d'une semaine
+// plutot qu'un select ce sera un datepicker qui récupère la semaine courantes
 // fetch les working times en question (ou alors le fait a l'initialisation)
 // affiche dans un bar chart avec les jours de la semaine en absices et les heures en ordonées
 
