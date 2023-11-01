@@ -1,6 +1,7 @@
 <script>
 
 import { GChart } from 'vue-google-charts'
+import { customToolTip } from '../../utils/chart'
 
 export default {
   name: 'workingtime',
@@ -10,12 +11,12 @@ export default {
   data() {
     return {
       chartData: [
-        ['day', 'shift', 'b', 'c', 'd'],
-        ['Mon', 8, 18, 8, 18,],
-        ['Tue', 7, 15, 7, 15],
-        ['Wed', 8, 15, 8, 15],
-        ['Thu', 8, 16, 8, 16],
-        ['Fri', 10, 19, 10, 19]
+        ['day', 'shift', 'b', 'c', 'd', {type:'string',role:'tooltip'}],
+        ['Mon', 8, 18, 8, 18, customToolTip(8, 18)],
+        ['Tue', 7, 15, 7, 15, customToolTip(7, 15)],
+        ['Wed', 8, 15, 8, 15, customToolTip(8, 15)],
+        ['Thu', 8, 16, 8, 16, customToolTip(8, 16)],
+        ['Fri', 10, 19, 10, 19, customToolTip(10, 19)]
       ],
       chartOptions: {
         legend: 'none',
