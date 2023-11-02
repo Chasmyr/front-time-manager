@@ -19,8 +19,6 @@ export default {
                     // appel api pour l'arreter
                     // sans oublier de tout enregistrer dans le store
                 }
-            } else {
-
             }
         }
     }
