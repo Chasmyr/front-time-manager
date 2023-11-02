@@ -25,7 +25,7 @@ export default createStore({
         setSignIn (state, payload) {
             state.isAuth = true
             state.currUser.id = payload.id
-            state.currUser.username = payload.username 
+            state.currUser.username = payload.username
             state.currUser.email = payload.email
             state.token = payload.token
         }

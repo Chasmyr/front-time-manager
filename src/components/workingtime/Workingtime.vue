@@ -48,7 +48,7 @@ export default {
 <template>
     <div class="w-6/12 h-62 p-3 bg-graph-bg rounded-3xl shadow flex flex-col">
       <div class="flex justify-between items-center">
-        <span class="text-second-text ml-2">Week 41</span> 
+        <span class="text-second-text ml-2">Week 41</span>
         <select class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 p-2.5 mr-2">
           <option selected>Choose a week</option>
           <option value="US">United States</option>
@@ -57,7 +57,7 @@ export default {
           <option value="DE">Germany</option>
         </select>
       </div>
-      <GChart 
+      <GChart
         type="CandlestickChart"
         :data="chartData"
         :options="chartOptions"
