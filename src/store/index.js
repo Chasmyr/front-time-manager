@@ -5,7 +5,7 @@ export default createStore({
         return {
             currentContent: "dashboard",
             token: null,
-            isAuth: false,
+            isAuth: true,
             currUser: {
                 "id": 1,
                 "name": "Filip",
