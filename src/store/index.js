@@ -15,7 +15,8 @@ export default createStore({
                     "start": "2023-10-26 08:00",
                     "isClocking": false
                 }
-            }
+            },
+            currWeekDisplayed: null
         }
     },
     mutations: {
@@ -28,6 +29,9 @@ export default createStore({
             state.currUser.username = payload.username 
             state.currUser.email = payload.email
             state.token = payload.token
+        },
+        setCurrWeek(state, payload) {
+            state.currWeekDisplayed = payload
         }
     },
     actions: {
@@ -36,6 +40,9 @@ export default createStore({
         },
         signIn ({ commit }, payload) {
             commit('setSignIn', payload)
+        },
+        changeWeek ({ commit }, payload) {
+            commit('setCurrWeek', payload)
         }
     }
 })
