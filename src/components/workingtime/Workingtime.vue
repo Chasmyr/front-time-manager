@@ -16,7 +16,7 @@ export default {
   methods: {
     init() {
       if(this.$store.state.currWeekDisplayed === null) {
-        let value = getWeek()
+        let value = getWeek(new Date)
         this.$store.dispatch('changeWeek', value).then(() => {
           this.isLoaded = true
         })
@@ -26,18 +26,36 @@ export default {
       }
     },
     handleDatePicker(e) {
-      // this.isLoaded = false
+      this.isLoaded = false
       let formatedDate = getWeekFromDate(e.target.value)
       let newUrl = formatedDate['url']
+      let resData = [
+            {
+                "start": "2023-10-27T12:34:56",
+                "end": "2023-10-27T19:34:56"
+            },
+            {
+                "start": "2023-10-28T12:00:56",
+                "end": "2023-10-28T18:30:56"
+            },
+            {
+                "start": "2023-11-01T13:30:56",
+                "end": "2023-11-01T19:34:56"
+            }
+        ]
       // let resData = ApiGet(`/workingtimes/${this.$store.state.currUser.id}/${newUrl}`)
       // ici ajoutez logique de call l'api pour changer les valeurs du datepicker
       let toDisplay = workingTimeDataFormat(resData, formatedDate['days'])
-
+      this.chartData = toDisplay
+      this.$store.dispatch('changeWeek', formatedDate['week']).then(() => {
+          this.isLoaded = true
+      })
     }
   },
   data() {
     return {
       isLoaded: false,
+      datepicker: '',
       chartData: [
         ['day', 'shift', 'b', 'c', 'd', {type:'string',role:'tooltip'}],
         ['Mon', 8, 18, 8, 18, customToolTip(8, 18)],
@@ -79,7 +97,7 @@ export default {
         <div class="flex justify-between items-center">
           <span class="text-second-text ml-2">Week {{ this.$store.state.currWeekDisplayed }}</span> 
           <div class="relative w-32">
-            <input datepicker type="date" @input="handleDatePicker" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">
+            <input datepicker v-model="datepicker" type="date" @input="handleDatePicker" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">
           </div>
         </div>
         <GChart 

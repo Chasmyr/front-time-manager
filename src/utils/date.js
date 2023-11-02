@@ -8,8 +8,8 @@ const formatDate = (date = new Date()) => {
     return [year, month, day].join('-')
 }
 
-export const getWeek = () => {
-    let curr = new Date
+export const getWeek = (date) => {
+    let curr = new Date(date)
     let startDate = new Date(curr.getFullYear(), 0, 1)
     var days = Math.floor((curr - startDate) /
     (24 * 60 * 60 * 1000));
@@ -27,5 +27,5 @@ export const getWeekFromDate = (date) => {
     )
     let toSend = {'firstDay': formatDate(firstDay), 'lastDay': formatDate(lastDay)}
     let newUrl = `start=${formatDate(firstDay)}T01:00:00&end=${formatDate(lastDay)}T23:00:00`
-    return {'days': toSend, 'url': newUrl}
+    return {'days': toSend, 'url': newUrl, 'week': getWeek(date)}
 }
