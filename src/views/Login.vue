@@ -13,15 +13,23 @@ export default {
         }
     },
     methods: {
-        signIn() {
+        async signIn(e) {
+            e.preventDefault()
             if(this.email.length > 0 && this.password.length > 0) {
                 let body = {
                     email: this.email,
                     password: this.password
                 }
-                let res = ApiPost('/users/login', body)
-                if (res.status === 'ok') {
+                let res = await ApiPost('/users/sign_in', body)
+                
+                console.log(res)
+
+                if (res.status === 200) {
                     //dispatch les infos users que je veux ici
+                    let userData = res.data
+                    userData["isAuth"] = true
+                    await this.$store.dispatch('signIn', userData)
+                    console.log(this.$store.state.currUser.username)
                 }
             }
         }
@@ -49,7 +57,7 @@ export default {
                             <label for="password" class="block mb-2 text-sm font-medium text-second-text">Password</label>
                             <input v-model="password" type="password" name="password" id="password" placeholder="••••••••" class="bg-tertiary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
                         </div>
-                        <button @click="signIn" type="submit" class="w-full text-second-text bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+                        <button @click="signIn" class="w-full text-second-text bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
                         <p class="text-sm font-light text-second-text">
                             Don’t have an account yet? <a href="#" class="font-medium text-second-text hover:underline">Sign up</a>
                         </p>

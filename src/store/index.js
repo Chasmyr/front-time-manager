@@ -8,7 +8,7 @@ export default createStore({
             isAuth: true,
             currUser: {
                 "id": 1,
-                "name": "Filip",
+                "username": "Filip",
                 "email": "test@test.com",
                 "role": "general_manager",
                 "clock": {
@@ -21,11 +21,21 @@ export default createStore({
     mutations: {
         setCurrentContent (state, payload) {
             state.currentContent = payload.newContent
+        },
+        setSignIn (state, payload) {
+            state.isAuth = true
+            state.currUser.id = payload.id
+            state.currUser.username = payload.username 
+            state.currUser.email = payload.email
+            state.token = payload.token
         }
     },
     actions: {
         changeContent ({ commit },payload) {
             commit('setCurrentContent', payload)
+        },
+        signIn ({ commit }, payload) {
+            commit('setSignIn', payload)
         }
     }
 })

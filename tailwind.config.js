@@ -12,7 +12,9 @@ export default {
       'summarybg': '#B9C1B6',
       'gray': '#333333',
       'graph-bg': '#BFB293',
-      'graph-bg-2': '#C4C3AA'
+      'graph-bg-2': '#C4C3AA',
+      'white': '#fff',
+      'danger': '#dc3545'
     },
   },
   plugins: [],
