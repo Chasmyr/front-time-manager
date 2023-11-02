@@ -95,7 +95,7 @@ export default {
     <div class="w-6/12 h-62 p-3 bg-graph-bg rounded-3xl shadow flex flex-col">
       <div v-if="isLoaded">
         <div class="flex justify-between items-center">
-          <span class="text-second-text ml-2">Week {{ this.$store.state.currWeekDisplayed }}</span> 
+          <span class="text-second-text ml-2 text-2xl font-bold">Week {{ this.$store.state.currWeekDisplayed }}</span> 
           <div class="relative w-32">
             <input datepicker v-model="datepicker" type="date" @input="handleDatePicker" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">
           </div>
