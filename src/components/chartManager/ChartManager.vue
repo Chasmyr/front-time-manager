@@ -1,11 +1,12 @@
 <script>
 import DailyAverage from '../dailyAverage/DailyAverage.vue';
+import EmployeeChart from '../employeeChart/employeeChart.vue';
 import WeeklyAverage from '../weeklyAverage/WeeklyAverage.vue';
 
 
 export default {
     name: 'ChartManager',
-    components: { DailyAverage, WeeklyAverage }
+    components: { DailyAverage, WeeklyAverage, EmployeeChart }
 }
 
 </script>
@@ -15,8 +16,8 @@ export default {
         <DailyAverage />
         <WeeklyAverage />
     </div>
-    <div >
-
+    <div>
+        <EmployeeChart />
     </div>
 
 </template>

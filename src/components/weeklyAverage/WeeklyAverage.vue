@@ -74,8 +74,8 @@ export default {
             <ul class="items-center w-full text-sm font-medium bg-graph-bg-2 sm:flex">
                 <li class="w-2/12" v-for="(team, index) in teams">
                     <div class="flex items-center pl-3">
-                        <input @click="handleCheckbox" v-model="teamsToDisplay" :id="'vue-checkbox-list' + team.id" type="checkbox" :value="team.id" class="w-4 h-4 text-second-text focus:ring-blue-500" :disabled="index === 0 && 'disabled'">
-                        <label :for="'vue-checkbox-list' + team.id" class="w-full py-2 ml-2 text-sm font-medium text-second-text">{{  team.name  }}</label>
+                        <input @click="handleCheckbox" v-model="teamsToDisplay" :id="'vue-checkbox-list-week' + team.id" type="checkbox" :value="team.id" class="w-4 h-4 text-second-text focus:ring-blue-500" :disabled="index === 0 && 'disabled'">
+                        <label :for="'vue-checkbox-list-week' + team.id" class="w-full py-2 ml-2 text-sm font-medium text-second-text">{{  team.name  }}</label>
                     </div>
                 </li>
             </ul>
