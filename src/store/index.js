@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
     state () {
         return {
-            currentContent: "dashboard",
+            currentContent: "graphs",
             token: null,
             isAuth: true,
             currUser: {
