@@ -11,17 +11,18 @@ export default {
 </script>
 
 <template>
-    <div class="w-full h-56 px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col justify-between mt-8">
+    <div class="w-full h-56 px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col justify-between mt-8" tabindex="0" aria-label="List of employee working hours">
         <div class="flex justify-between items-center">
             <span class="text-second-text ml-2 text-xl font-bold">Employee working hours chart</span>
             <div>
                 <select id="employee" class="bg-second-text text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-                <option selected>Employee</option>
+                <option selected aria-label="Selected country">Employee</option>
                 <option value="US">United States</option>
                 <option value="CA">Canada</option>
                 <option value="FR">France</option>
                 <option value="DE">Germany</option>
                 </select>
+                <!-- Gestion l'accessibilité des injections  -->
             </div>
         </div>
     </div>

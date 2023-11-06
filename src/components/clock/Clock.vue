@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-    <div class="w-4/12 h-56 px-6 py-4 bg-clockbg rounded-3xl shadow flex flex-col justify-between">
+    <div class="w-4/12 h-56 px-6 py-4 bg-clockbg rounded-3xl shadow flex flex-col justify-between" tabindex="0" aria-label="Clock timer">
         <h2 class="m-0 text-2xl font-bold tracking-tight text-second-text">Clock</h2>
         <div class="flex justify-center items-center flex-col" v-if="clock.isClocking">
             <span class="text-gray text-sm mb-2">Started at :</span>
@@ -37,7 +37,7 @@ export default {
             <span class="text-gray text-sm mb-2">Start the timer</span>
         </div>
         <div class="flex justify-center items-center">
-            <button class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text">Start</button>
+            <button class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text" aria-label="Start the timer">Start</button>
         </div>
     </div>
 </template>
