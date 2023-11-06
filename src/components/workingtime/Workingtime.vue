@@ -1,7 +1,7 @@
 <script>
 
 import { GChart } from 'vue-google-charts'
-import { customToolTip, workingTimeDataFormat } from '../../utils/chart'
+import { workingTimeDataFormat } from '../../utils/chart'
 import { getWeek, getWeekFromDate } from '../../utils/date'
 import { ApiGet } from '../../utils/api'
 
@@ -9,6 +9,10 @@ export default {
   name: 'workingtime',
   components: {
     GChart
+  },
+  props: {
+    data: Array,
+    bgColor: String
   },
   mounted() {
     this.init()
@@ -56,23 +60,16 @@ export default {
     return {
       isLoaded: false,
       datepicker: '',
-      chartData: [
-        ['day', 'shift', 'b', 'c', 'd', {type:'string',role:'tooltip'}],
-        ['Mon', 8, 18, 8, 18, customToolTip(8, 18)],
-        ['Tue', 7, 15, 7, 15, customToolTip(7, 15)],
-        ['Wed', 8, 15, 8, 15, customToolTip(8, 15)],
-        ['Thu', null, null, null, null, customToolTip(0, 0)],
-        ['Fri', 10, 19, 10, 19, customToolTip(10, 19)]
-      ],
+      chartData: this.data,
       chartOptions: {
         legend: 'none',
-        fill: '#e0440e',
+        fill: this.bgColor,
         bar: { groupWidth: '80%' },
         'backgroundColor': {
-          'fill': '#BFB293',
+          'fill': this.bgColor,
           'opacity': 100
         },
-        chartArea: {'width': '85%', 'height': '60%'},
+        chartArea: {'width': '90%', 'height': '60%'},
         vAxis: {
           ticks: [6, 8, 10, 12, 14, 16, 18, 20]
         },
@@ -92,24 +89,22 @@ export default {
 </script>
 
 <template>
-    <div class="w-6/12 h-62 p-3 bg-graph-bg rounded-3xl shadow flex flex-col">
-      <div v-if="isLoaded">
-        <div class="flex justify-between items-center">
-          <span class="text-second-text ml-2 text-2xl font-bold">Week {{ this.$store.state.currWeekDisplayed }}</span> 
-          <div class="relative w-32">
-            <input datepicker v-model="datepicker" type="date" @input="handleDatePicker" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">
-          </div>
-        </div>
-        <GChart 
-          type="CandlestickChart"
-          :data="chartData"
-          :options="chartOptions"
-        />
-      </div>
-      <div v-else>
-          <span>Loading...</span>
+  <div v-if="isLoaded">
+    <div class="flex justify-between items-center">
+      <span class="text-second-text ml-2 text-2xl font-bold">Week {{ this.$store.state.currWeekDisplayed }}</span> 
+      <div class="relative w-32">
+        <input datepicker v-model="datepicker" type="date" @input="handleDatePicker" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">
       </div>
     </div>
+    <GChart 
+      type="CandlestickChart"
+      :data="chartData"
+      :options="chartOptions"
+    />
+  </div>
+  <div v-else>
+      <span>Loading...</span>
+  </div>
 </template>
 
 <style>

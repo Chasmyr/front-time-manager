@@ -18,8 +18,8 @@ export const ApiDelete = async (url) => {
     .catch(err => console.log(err))
 }
 
-export const ApiPut = async (url, body) => {
-    return await axios.put(`http://localhost:4000/api${url}`, body)
+export const ApiPatch = async (url, body) => {
+    return await axios.patch(`http://localhost:4000/api${url}`, body)
     .then(res => res.data)
     .catch(err => console.log(err))
 }
