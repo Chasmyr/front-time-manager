@@ -1,9 +1,5 @@
-export const customToolTip = (startVal, endVal, date) => {
-    if (date !== null) {
-        return `${new Date(date).getMonth() +1}/${new Date(date).getDate()} \n Start: ${startVal} \n End: ${endVal}`       
-    } else {
-        return ``
-    }
+export const customToolTip = (startVal, endVal, ) => {
+    return `Start: ${startVal} \n End: ${endVal}`       
 }
 
 const hoursToInt = (hours) => {

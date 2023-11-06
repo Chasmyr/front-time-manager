@@ -22,7 +22,13 @@ export default {
   methods: {
     updateUser() {
         let newData = {'username' : this.usernameForm, 'email' : this.emailForm,'password' : this.password}
-
+        console.log(newData)
+    },
+    deleteUser() {
+        console.log('delete')
+    },
+    logout() {
+        this.$store.dispatch('logout').then(() => this.$router.push('/login'))
     }
   }
 }
@@ -78,7 +84,11 @@ export default {
                         </div>
                         <div class="flex flex-col">
                             <button @click="updateUser" type="button" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">Update</button>
-                            <button type="submit" class="text-second-text hover:text-danger focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-xs px-5 py-2.5 text-center">Delete your account</button>
+                            <button @click="deleteUser" type="submit" class="text-second-text hover:text-danger focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-xs px-2 py-2.5 text-center">Delete your account</button>
+                        </div>
+                        <div class="flex flex-col w-full items-center">
+                            <span class="text-second-text mb-2">-------------------</span>
+                            <button @click="logout" type="button" class="w-full hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 hover:text-white hover:bg-tertiary">Logout</button>
                         </div>
                     </form>
                 </div>

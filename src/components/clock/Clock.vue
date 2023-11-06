@@ -5,7 +5,7 @@ export default {
     components: {},
     computed: {
         clock() {
-            return this.$store.state.currUser.clock.start != null ? this.$store.state.currUser.clock : null
+            return this.$store.state.currUser.clock != null ? this.$store.state.currUser.clock : null
         }
     },
     methods: {
@@ -29,7 +29,7 @@ export default {
 <template>
     <div class="w-4/12 h-56 px-6 py-4 bg-clockbg rounded-3xl shadow flex flex-col justify-between">
         <h2 class="m-0 text-2xl font-bold tracking-tight text-second-text">Clock</h2>
-        <div class="flex justify-center items-center flex-col" v-if="clock.isClocking">
+        <div class="flex justify-center items-center flex-col" v-if="clock">
             <span class="text-gray text-sm mb-2">Started at :</span>
             <span class="text-second-text text-xl">{{ clock.start }}</span>
         </div>

@@ -20,13 +20,15 @@ export default {
                     email: this.email,
                     password: this.password
                 }
-                let res = await ApiPost('/users/sign_in', body)
+                let res = await ApiPost('/users/login', body)
+
+                console.log(res)
 
                 if (res.status === 200) {
                     //dispatch les infos users que je veux ici
                     let userData = res.data
                     userData["isAuth"] = true
-                    this.$store.dispatch('signIn', userData).then(() => this.$router.push('/'))
+                    this.$store.dispatch('login', userData).then(() => this.$router.push('/'))
                 }
             }
         }
