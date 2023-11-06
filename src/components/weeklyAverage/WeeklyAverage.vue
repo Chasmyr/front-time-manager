@@ -31,6 +31,14 @@ export default {
                     })
                 }
             }
+        },
+        handleDatePicker(e) {
+            // logique du code pour le weekly average
+            // au clique du btn qui envoie les dates pickers
+            // il faut fetch toutes les données relative a la range en utilisant les semaines
+            // puis les trier par team
+            // puis en faire la moyenne
+            // puis renvoyer un tableau de valeur
         }
     },
     data() {
@@ -38,6 +46,8 @@ export default {
             teamsDisplayed: '1',
             teamsToDisplay: [1],
             teamsAlreadyDisplayed: [1],
+            dateRangeStart: '',
+            dateRangeEnd: '',
             teams: [
                 {id: 1, name: 1, value: [4, 6, 7, 8]},
                 {id: 2, name: 2, value: [4, 5, 2, 9]},
@@ -70,7 +80,21 @@ export default {
 <template>
     <div class="w-6/12 h-62 p-3 bg-graph-bg-2 rounded-3xl shadow flex flex-col" aria-label="Graph with weekly average hours worked by teams" tabindex="0">
         <div class="flex flex-col mx-2">
-            <span class="m-0 text-xl font-bold tracking-tight text-second-text">Weekly average hours worked by teams :</span>
+            <span class="m-0 mb-2 text-xl font-bold tracking-tight text-second-text">Weekly average hours worked by teams :</span>
+            <div date-rangepicker class="flex items-center mr-4 justify-between mb-1">
+                <div class="relative">
+                    <input v-model="dateRangeStart" name="start" type="date" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 p-1.5" placeholder="Select date start">
+                </div>
+                <span class="mx-4 text-second-text">to</span>
+                <div class="relative">
+                    <input v-model="dateRangeEnd" name="end" type="date" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 p-1.5" placeholder="Select date end">
+                </div>
+                <button @click="handleDatePicker" type="button" class="ml-2 text-white bg-second-text focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center">
+                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </button>
+            </div>
             <ul class="items-center w-full text-sm font-medium bg-graph-bg-2 sm:flex">
                 <li class="w-2/12" v-for="(team, index) in teams">
                     <div class="flex items-center pl-3">
@@ -81,7 +105,7 @@ export default {
             </ul>
         </div>
         <GChart
-            type="AreaChart"
+            type="ColumnChart"
             :data="chartData"
             :options="chartOptions"
         />
