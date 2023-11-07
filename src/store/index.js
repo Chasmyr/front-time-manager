@@ -32,6 +32,7 @@ export default createStore({
             state.currUser.clock = payload.clock
             state.currUser.workingtimes = payload.workingTimes
             state.token = payload.token
+            state.currentContent = "Dashboard"
         },
         setCurrWeek(state, payload) {
             state.currWeekDisplayed = payload
