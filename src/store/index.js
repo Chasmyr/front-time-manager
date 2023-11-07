@@ -16,7 +16,7 @@ export default createStore({
             },
             currWeekDisplayed: null,
             usersList: null,
-            isNavOpen: true
+            isNavOpen: false
         }
     },
     mutations: {

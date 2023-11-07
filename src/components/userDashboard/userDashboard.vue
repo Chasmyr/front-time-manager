@@ -37,11 +37,13 @@ export default {
         <Random />
         <Clock />
     </div>
-    <div class="w-full flex justifybetween gap-6 mt-6">
-        <div v-if="isLoaded" class="w-6/12 h-62 p-3 bg-graph-bg rounded-3xl shadow flex flex-col">
+    <div class="w-full flex-col md:flex-row gap-6 mt-6">
+        <div v-if="isLoaded" class="w-full md:w-6/12 min-h-56 p-3 bg-graph-bg rounded-3xl shadow flex flex-col mb-6 md:mb-0">
             <Workingtime :data="chartData" :bg-color="bgColor"/>
         </div>
-        <DashboardGraph />
+        <div class="w-full md:w-6/12 h-56 p-3 bg-graph-bg-2 rounded-3xl shadow flex flex-col mb-6 md:mb-0">
+            <DashboardGraph />
+        </div>
     </div>
 </template>
 

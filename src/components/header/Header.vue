@@ -42,7 +42,11 @@ export default {
         this.$store.dispatch('logout').then(() => this.$router.push('/login'))
     },
     handleNav() {
-        this.$store.dispatch('changeNav')
+        if(this.$store.state.currUser.role === "employee") {
+            this.$store.dispatch('changeContent', {newContent: 'Dashboard'})
+        } else {
+            this.$store.dispatch('changeNav')
+        }
     }
   }
 }

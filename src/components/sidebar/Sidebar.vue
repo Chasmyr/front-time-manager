@@ -9,7 +9,7 @@ export default {
         activeClass: 'bg-primary text-second-text',
         notActiveClass: 'text-graph-bg opacity-70',
         userRole: this.$store.state.currUser.role,
-        isResponsive: window.innerWidth > 1000 ? false : true
+        isResponsive: window.innerWidth > 1280 ? false : true
     }
   },
   mounted() {
@@ -18,6 +18,9 @@ export default {
   methods: {
     changeContent(newContent) {
         this.$store.dispatch('changeContent', {newContent: newContent})
+        if(this.$store.state.isNavOpen) {
+            this.$store.dispatch('changeNav')
+        }
     },
     handleNav() {
         this.$store.dispatch('changeNav')
@@ -53,9 +56,27 @@ export default {
     </div>
     <div v-else>
         <div v-if="this.$store.state.isNavOpen" class="fixed w-full h-full z-50 bg-second-text bg-opacity-50 top-0 left-0 flex justify-start">
-            <div class="bg-secondary w-60">
+            <div class="bg-secondary w-64 p-4 pl-6">
                 <div class="flex justify-end">
-                    <span @click="handleNav">close</span>
+                    <div @click="handleNav" class="text-second-text flex items-center cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-8 mt-8" v-if="userRole != null && (userRole === 'manager' || userRole === 'general_manager')">
+                    <button @click="changeContent(content[0])" type="button" class="text-red-700 w-full hover:text-white border border-tertiary text-tertiary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">
+                        Dashboard
+                    </button>
+                    <button @click="changeContent(content[1])" type="button" class="text-red-700 w-full hover:text-white border border-tertiary text-tertiary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">
+                        Teams
+                    </button>
+                    <button @click="changeContent(content[2])" type="button" class="text-red-700 w-full hover:text-white border border-tertiary text-tertiary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">
+                        Graphs
+                    </button>
+                    <button v-if="userRole === 'general_manager'" @click="changeContent(content[3])" type="button" class="text-red-700 w-full hover:text-white border border-tertiary text-tertiary focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">
+                        Employee Table
+                    </button>
                 </div>
             </div>
         </div>

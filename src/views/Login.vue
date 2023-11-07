@@ -43,7 +43,7 @@ export default {
 </script>
 
 <template>
-    <div class="wrapper">
+    <div class="wrapper sm:w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 ">
         <Header />
         <div class="flex justify-center text-slate-950">
             <div class="w-full bg-secondary rounded-3xl md:mt-8 sm:max-w-md xl:p-0">
