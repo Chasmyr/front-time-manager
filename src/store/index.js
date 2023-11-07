@@ -14,7 +14,8 @@ export default createStore({
                 "clock": null,
                 "workingtimes": null
             },
-            currWeekDisplayed: null
+            currWeekDisplayed: null,
+            usersList: null
         }
     },
     mutations: {

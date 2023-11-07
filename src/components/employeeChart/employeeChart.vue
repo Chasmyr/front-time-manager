@@ -2,11 +2,17 @@
 
 import Workingtime from '../workingtime/Workingtime.vue';
 import { customToolTip } from '../../utils/chart'
+import { ApiGet } from '../../utils/api';
 
 export default {
     name: 'EmployeeChart',
     components: {
         Workingtime
+    },
+    mounted() {
+        this.getAllUsers().then(() => {
+            this.usersList = this.$store.state.usersList
+        })
     },
     data() {
         return {
@@ -26,12 +32,22 @@ export default {
             modalStartHour: null,
             modalEndHour: null,
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            usersList: null,
+            userIdView: null
         }
     },
     methods: {
-        // gérer le select et surtout l'affichage apres
-        employeeView(e) {
+        async getAllUsers() {
+            this.$store.state.usersList = await ApiGet('/users')
+        },
+        async employeeView(e) {
+            this.userIdView = e.target.value
+            let formatedDate = getWeekFromDate(new Date())
+            let newUrl = formatedDate['url']
+            let res = await ApiGet(`/workingtimes/${this.userIdView}?${newUrl}`)
+            let toDisplay = workingTimeDataFormat(res, formatedDate['days'])
+            this.chartData = toDisplay
             this.isInitialized = true
         },
         modalOpener() {
@@ -78,11 +94,8 @@ export default {
             <span class="text-second-text ml-2 text-xl font-bold">Employee working hours chart</span>
             <div>
                 <select id="employee" @change="employeeView" class="bg-second-text text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-                <option selected>Employee</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
+                <option :value="null"></option>
+                <option v-for="user in usersList" :value="user.id">{{ user.email }}</option>
                 </select>
             </div>
         </div>

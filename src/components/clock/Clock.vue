@@ -59,7 +59,7 @@ export default {
         <div v-else class="flex justify-center items-center flex-col">
             <span class="text-gray text-sm mb-2">Start the timer</span>
         </div>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center" v-if="clock">
             <button @click="handleClock" class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text">{{ clock.status ? 'stop': 'start' }}</button>
         </div>
     </div>

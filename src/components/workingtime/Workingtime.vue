@@ -12,7 +12,8 @@ export default {
   },
   props: {
     data: Array,
-    bgColor: String
+    bgColor: String,
+    currUserId: Number
   },
   mounted() {
     this.init()
@@ -35,8 +36,6 @@ export default {
       let newUrl = formatedDate['url']
       let user = this.$store.state.currUser.id
       let res = await ApiGet(`/workingtimes/${user}?${newUrl}`)
-      // let resData = ApiGet(`/workingtimes/${this.$store.state.currUser.id}/${newUrl}`)
-      // ici ajoutez logique de call l'api pour changer les valeurs du datepicker
       let toDisplay = workingTimeDataFormat(res, formatedDate['days'])
       this.chartData = toDisplay
       this.$store.dispatch('changeWeek', formatedDate['week']).then(() => {
