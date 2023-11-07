@@ -40,6 +40,9 @@ export default {
     },
     logout() {
         this.$store.dispatch('logout').then(() => this.$router.push('/login'))
+    },
+    handleNav() {
+        this.$store.dispatch('changeNav')
     }
   }
 }
@@ -50,7 +53,7 @@ export default {
     <header class="flex justify-between items-center max-w-7xl m-8">
         <div class="flex justify-between items-center"> 
             <div class="text-primary flex justify-center items-center rounded-full mr-12 p-2 text-3xl font-semibold w-11 h-11 border border-solid">
-                <span>G</span>
+                <span @click="handleNav">G</span>
             </div>
             <div>
                 <h1 class="m-0 text-3xl font-normal text-white">{{ this.$store.state.currentContent }}</h1>

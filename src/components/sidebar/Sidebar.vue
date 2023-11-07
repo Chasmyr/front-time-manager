@@ -8,7 +8,8 @@ export default {
         content: ["Dashboard", "Teams", "Graphs", "Employes-dashboard"],
         activeClass: 'bg-primary text-second-text',
         notActiveClass: 'text-graph-bg opacity-70',
-        userRole: this.$store.state.currUser.role
+        userRole: this.$store.state.currUser.role,
+        isResponsive: window.innerWidth > 1000 ? false : true
     }
   },
   mounted() {
@@ -17,6 +18,9 @@ export default {
   methods: {
     changeContent(newContent) {
         this.$store.dispatch('changeContent', {newContent: newContent})
+    },
+    handleNav() {
+        this.$store.dispatch('changeNav')
     }
   }
 }
@@ -24,7 +28,7 @@ export default {
 </script>
 
 <template>
-    <div class="sidebar-content mr-12 ml-8 mt-8">
+    <div class="sidebar-content mr-12 ml-8 mt-8" v-if="!isResponsive">
         <div @click="changeContent(content[0])" v-bind:class="[ this.$store.state.currentContent === content[0] ? activeClass : notActiveClass ]" class="[&>*]:w-8 [&>*]:h-8 [&>*]:cursor-pointer mb-12 rounded-full h-10 w-10 flex justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -45,6 +49,15 @@ export default {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
             </svg>
+        </div>
+    </div>
+    <div v-else>
+        <div v-if="this.$store.state.isNavOpen" class="fixed w-full h-full z-50 bg-second-text bg-opacity-50 top-0 left-0 flex justify-start">
+            <div class="bg-secondary w-60">
+                <div class="flex justify-end">
+                    <span @click="handleNav">close</span>
+                </div>
+            </div>
         </div>
     </div>
 </template>

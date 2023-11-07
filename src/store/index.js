@@ -15,7 +15,8 @@ export default createStore({
                 "workingtimes": null
             },
             currWeekDisplayed: null,
-            usersList: null
+            usersList: null,
+            isNavOpen: true
         }
     },
     mutations: {
@@ -50,6 +51,9 @@ export default createStore({
         },
         setClock(state, payload) {
             state.currUser.clock = payload
+        },
+        setNav(state) {
+            state.isNavOpen = !state.isNavOpen
         }
     },
     actions: {
@@ -67,6 +71,9 @@ export default createStore({
         },
         changeClock ({ commit }, payload) {
             commit('setClock', payload)
+        },
+        changeNav ({ commit }) {
+            commit('setNav')
         }
     }
 })

@@ -43,7 +43,4 @@ export default {
 </template>
 
 <style>
-.wrapper {
-    width: 1000px;
-}
 </style>
