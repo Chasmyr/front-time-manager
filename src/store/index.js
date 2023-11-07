@@ -27,6 +27,7 @@ export default createStore({
             state.currUser.email = payload.email
             state.currUser.role = payload.role
             state.token = payload.token
+            state.currUser.clock = payload.clock
         },
         setCurrWeek(state, payload) {
             state.currWeekDisplayed = payload
@@ -43,6 +44,9 @@ export default createStore({
                 "clock": null
             },
             state.currWeekDisplayed = null
+        },
+        setClock(state, payload) {
+            state.currUser.clock = payload
         }
     },
     actions: {
@@ -57,6 +61,9 @@ export default createStore({
         },
         logout ({ commit }, payload) {
             commit('resetState', payload)
+        },
+        changeClock ({ commit }, payload) {
+            commit('setClock', payload)
         }
     }
 })

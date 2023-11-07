@@ -20,7 +20,13 @@ export default {
                 ['Fri', 10, 19, 10, 19, customToolTip(10, 19)]
             ],
             bgColor: '#B9C1B6',
-            modalOpen: false
+            modalOpen: false,
+            workingHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            modalDatepicker: null,
+            modalStartHour: null,
+            modalEndHour: null,
+            isError: false,
+            errorMessage: ''
         }
     },
     methods: {
@@ -30,6 +36,33 @@ export default {
         },
         modalOpener() {
             this.modalOpen = !this.modalOpen
+        },
+        errorHandler() {
+            this.isError = !this.isError
+        },
+        handleCreateWorkingtime() {
+            if(this.modalDatepicker !== null) {
+                if(this.modalEndHour !== null && this.modalStartHour !== null) {
+                    if(this.modalEndHour > this.modalStartHour) {
+                        let start = `${this.modalDatepicker}T${this.modalStartHour}:00:00`
+                        let end = `${this.modalDatepicker}T${this.modalEndHour}:00:00`
+                        let body = {
+                            start: start,
+                            end: end,
+                            userId: this.$store.state.currUser.id
+                        }
+                        console.log(body)
+                        // envoyer le code ici puis fermer la modal
+                    } else if (this.modalEndHour < this.modalStartHour) {
+                        // display error msg
+                        this.errorMessage = 'End hour must be after the start one.'
+                        this.isError = true
+                    }
+                }
+            } else {
+                this.errorMessage = 'You must select a date'
+                this.isError = true
+            }
         }
     }
 }
@@ -74,7 +107,7 @@ export default {
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <div class="flex justify-between items-center">
                             <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-second-text">
-                                Update your account
+                                Add Workingtime
                             </h1>
                             <div @click="modalOpener" class="text-second-text flex items-center cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
@@ -83,21 +116,36 @@ export default {
                             </div>
                         </div>
                         <form class="space-y-4 md:space-y-6" action="#">
-                            <div>
-                                <label for="emailForm" class="block mb-2 text-sm font-medium text-second-text">Your email</label>
-                                <input id="emailForm" type="email" name="emailForm" class="bg-tertiary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com">
+                            <div v-if="isError" class="bg-danger px-4 py-3 rounded relative" role="alert">
+                                <span class="block sm:inline">{{ errorMessage }}</span>
+                                <span @click="errorHandler" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                                </span>
                             </div>
                             <div>
-                                <label for="usernameForm" class="block mb-2 text-sm font-medium text-second-text">Your username</label>
-                                <input id="usernameForm" type="text" name="usernameForm" class="bg-tertiary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="username">
+                                <label for="workingtime-datepicker" class="block mb-2 text-sm font-medium text-second-text">Select the day</label>
+                                <input v-model="modalDatepicker" datepicker type="date" id="workingtime-datepicker" class="bg-tertiary text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">
                             </div>
-                            <div>
-                                <label for="passwordForm" class="block mb-2 text-sm font-medium text-second-text">Password</label>
-                                <input id="passwordForm" type="password" name="passwordForm" placeholder="••••••••" class="bg-tertiary text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <div class="flex gap-6">
+                                <div class="w-6/12">
+                                    <label for="workingtime-start-hour" class="block mb-2 text-sm font-medium text-second-text">Start hour</label>
+                                    <select v-model="modalStartHour" id="workingtime-start-hour" class="bg-tertiary w-full text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                                        <option v-for="hour in workingHours" :value="hour">
+                                            {{ hour }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="w-6/12">
+                                    <label for="workingtime-end-hour" class="block mb-2 text-sm font-medium text-second-text">End hour</label>
+                                    <select v-model="modalEndHour" id="workingtime-end-hour" class="bg-tertiary w-full text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                                        <option v-for="hour in workingHours" :value="hour">
+                                            {{ hour }}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="flex flex-col">
-                                <button type="button" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">Update</button>
-                                <button type="submit" class="text-second-text hover:text-danger focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-xs px-5 py-2.5 text-center">Delete your account</button>
+                                <button @click="handleCreateWorkingtime" type="button" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-tertiary">Create</button>
                             </div>
                         </form>
                     </div>
