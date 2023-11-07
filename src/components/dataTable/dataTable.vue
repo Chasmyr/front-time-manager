@@ -1,13 +1,12 @@
 <script>
   import Vue3EasyDataTable from 'vue3-easy-data-table';
-  import { onlyManagedTeams } from '../../utils/table'
 
   export default {
     name: 'DataTable',
     components: {
       Vue3EasyDataTable,
     },
-    
+
     props: {
       items: Array,
       headers: Array,

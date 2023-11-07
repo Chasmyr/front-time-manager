@@ -11,52 +11,53 @@ export default {
     },
     data() {
         return {
-        items: [
-        {
-          username: "leo",
-          email: "leo@exemple.com",
-          role: "employee",
-          teamsId: 1
-        },
-        {
-          username: "dada",
-          email: "dada@exemple.com",
-          role: "employee",
-          teamsId: 2
-        },
-        {
-          username: "mzmz",
-          email: "mzmz@exemple.com",
-          role: "employee",
-          teamsId: 3
-        },
-        {
-          username: "bobo",
-          email: "bobo@exemple.com",
-          role: "employee",
-          teamsId: 1
-        },
-        {
-          username: "vovo",
-          email: "vovo@exemple.com",
-          role: "employee",
-          teamsId: 2
-        }
-        ],
-        headers: [
-            {text: "Username", value: "username"},
-            {text: "Email", value: "email"},
-            {text: "Role", value: "role"},
-            {text: "team", value: "teamsId", sortable: "true"},
-        ],
-        searchField: ["username", "email", "role", "teamsId"],
-        searchValue: "",
-        sortBy: "teamsId",
-        loading: false
+          items: [],
+          users: [
+            {
+              username: "leo",
+              email: "leo@exemple.com",
+              role: "employee",
+              teamsId: 1
+            },
+            {
+              username: "dada",
+              email: "dada@exemple.com",
+              role: "employee",
+              teamsId: 2
+            },
+            {
+              username: "mzmz",
+              email: "mzmz@exemple.com",
+              role: "employee",
+              teamsId: 3
+            },
+            {
+              username: "bobo",
+              email: "bobo@exemple.com",
+              role: "employee",
+              teamsId: 1
+            },
+            {
+              username: "vovo",
+              email: "vovo@exemple.com",
+              role: "employee",
+              teamsId: 2
+            }
+          ],
+          headers: [
+              {text: "Username", value: "username"},
+              {text: "Email", value: "email"},
+              {text: "Role", value: "role"},
+              {text: "team", value: "teamsId", sortable: "true"},
+          ],
+          searchField: ["username", "email", "role", "teamsId"],
+          searchValue: "",
+          sortBy: "teamsId",
+          loading: false
         }
     },
     created() {
-    console.log(onlyManagedTeams(this.items))
+      this.items = onlyManagedTeams(this.users, this.$store.state.currUser.managed_teams)
     // this.getUsers()
   },
     // methods: {
