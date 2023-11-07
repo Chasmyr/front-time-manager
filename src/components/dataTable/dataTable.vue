@@ -82,5 +82,6 @@
     --easy-table-body-row-background-color: rgb(186 182 193);
     --easy-table-footer-background-color: rgb(186 182 193);
     --easy-table-border: none;
+    --easy-table-body-row-hover-background-color: none;
   }
 </style>
