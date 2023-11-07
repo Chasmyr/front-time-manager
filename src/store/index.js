@@ -5,12 +5,13 @@ export default createStore({
         return {
             currentContent: "Dashboard",
             token: null,
-            isAuth: false,
+            isAuth: true,
             currUser: {
                 "id": null,
                 "username": null,
                 "email": null,
-                "role": null,
+                "role": "manager",
+                "managed_teams": [1, 2],
                 "clock": null,
                 "workingtimes": null
             },

@@ -5,10 +5,11 @@ import Header from '../components/header/Header.vue';
 import Sidebar from '../components/sidebar/Sidebar.vue';
 import UserDashboard from '../components/userDashboard/userDashboard.vue';
 import ManagerTable from '../components/managerTable/managerTable.vue';
+import GeneralManagerTable from '../components/generalManagerTable/generalManagerTable.vue';
 
 export default {
   name: 'Dashboard',
-  components: { Header, Sidebar, UserDashboard, UserDashboard, ChartManager, ManagerTable },
+  components: { Header, Sidebar, UserDashboard, UserDashboard, ChartManager, ManagerTable, GeneralManagerTable },
   computed: {
     isDashboard() {
         return this.$store.state.currentContent === "Dashboard" ? true : false
@@ -16,11 +17,11 @@ export default {
     isTeams() {
       return this.$store.state.currentContent === "Teams" ? true : false
     },
-    isTeams() {
-      return this.$store.state.currentContent === "teams" ? true : false
-    },
     isGraphs() {
         return this.$store.state.currentContent === "Graphs" ? true : false
+    },
+    isEmployesDashboard() {
+        return this.$store.state.currentContent === "Employes-dashboard" ? true : false
     }
   }
 }
@@ -40,6 +41,9 @@ export default {
             </div>
             <div v-if="isGraphs" class="w-full mt-12">
                 <ChartManager />
+            </div>
+            <div v-if="isEmployesDashboard" class="w-full mt-12">
+                <GeneralManagerTable/>
             </div>
         </div>
     </div>

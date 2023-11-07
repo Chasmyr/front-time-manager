@@ -5,13 +5,13 @@ import dataTable from '../dataTable/dataTable.vue';
 import { onlyManagedTeams } from '../../utils/table';
 
 export default {
-    name: 'ManagerTable',
-    components: {
-        dataTable,
-    },
-    data() {
-        return {
-        items: [
+  components: {
+    dataTable,
+  },
+
+   data() {
+    return {
+      items: [
         {
           username: "leo",
           email: "leo@exemple.com",
@@ -42,30 +42,31 @@ export default {
           role: "employee",
           teamsId: 2
         }
-        ],
-        headers: [
-            {text: "Username", value: "username"},
-            {text: "Email", value: "email"},
-            {text: "Role", value: "role"},
-            {text: "team", value: "teamsId", sortable: "true"},
-        ],
-        searchField: ["username", "email", "role", "teamsId"],
-        searchValue: "",
-        sortBy: "teamsId",
-        loading: false
-        }
-    },
-    created() {
-    console.log(onlyManagedTeams(this.items))
-    // this.getUsers()
-  },
-    // methods: {
-    //     async getUsers() {
-    //     this.loading = true
-    //     this.items = await ApiGet('/users')
-    //     this.loading = false
-    //     },
-    // }
+      ],
+      managedTeams: [],
+      headers: [
+        {text: "Username", value: "username"},
+        {text: "Email", value: "email"},
+        {text: "Role", value: "role"},
+        {text: "team", value: "teamsId", sortable: "true"},
+        {text: "action", value: "action"}
+      ],
+      searchField: ["username", "email", "role", "teamsId"],
+      searchValue: "",
+      sortBy: "teamsId",
+      loading: false
+    }
+   },
+
+   methods: {
+
+
+  //   async getUsers() {
+  //     this.loading = true
+  //     this.items = await ApiGet('/users')
+  //     this.loading = false
+  //   },
+   }
 }
 </script>
 
