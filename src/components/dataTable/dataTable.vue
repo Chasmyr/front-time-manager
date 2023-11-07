@@ -2,6 +2,7 @@
   import Vue3EasyDataTable from 'vue3-easy-data-table';
 
   export default {
+    name: 'DataTable',
     components: {
       Vue3EasyDataTable,
     },
@@ -78,10 +79,9 @@
 
 <style>
   .customize-table {
-    --easy-table-header-background-color: rgb(186 182 193);
-    --easy-table-body-row-background-color: rgb(186 182 193);
-    --easy-table-footer-background-color: rgb(186 182 193);
+    --easy-table-header-background-color: #B9C1B6;
+    --easy-table-body-row-background-color: #B9C1B6;
+    --easy-table-footer-background-color: #B9C1B6;
     --easy-table-border: none;
-    --easy-table-body-row-hover-background-color: none;
   }
 </style>

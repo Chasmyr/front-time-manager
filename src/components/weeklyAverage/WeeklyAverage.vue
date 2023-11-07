@@ -1,5 +1,6 @@
 <script>
 
+import { toRaw } from 'vue'
 import { GChart } from 'vue-google-charts'
 
 export default {
@@ -29,6 +30,12 @@ export default {
                     this.chartData.map((row) => {
                         row.splice(valToErease, 1)
                     })
+                    if(this.chartOptions['series'] !== '') {
+                        let newIndex = this.chartData[0].indexOf('average')
+                        let newObj = {}
+                        newObj[newIndex - 1] = {type: 'line'}
+                        this.chartOptions['series'] = newObj
+                    }
                 }
             }
         },
@@ -39,6 +46,31 @@ export default {
             // puis les trier par team
             // puis en faire la moyenne
             // puis renvoyer un tableau de valeur 
+        },
+        handleComboChart(e) {
+            this.isComboChart = !this.isComboChart
+            if(this.isComboChart) {
+                // il faut qu'au click cela ajoute les datas necessaire pour transformer ca en combochart
+                let avegareClockHours = ['average', 7, 6, 6, 8]
+                let newData = toRaw(this.chartData)
+                let newSeries = {}
+                newSeries[newData[0].length - 1] = {type: 'line'}
+                this.chartOptions['series'] = newSeries
+                this.chartType = 'ComboChart'
+                this.chartData.map((row, index) => {
+                    newData[index][row.length] = avegareClockHours[index]
+                })
+                this.chartData = newData
+            } else {
+                let indexToErease = this.chartData[0].indexOf('average')
+                let newData = []
+                this.chartData.map((row) => {
+                    newData.push(row.filter((data, idx) => idx !== indexToErease))
+                })
+                this.chartData = newData
+                this.chartOptions['series'] = ''
+                this.chartType = 'ColumnChart'
+            }
         }
     },
     data() {
@@ -48,6 +80,7 @@ export default {
             teamsAlreadyDisplayed: [1],
             dateRangeStart: '',
             dateRangeEnd: '',
+            isComboChart: false,
             teams: [
                 {id: 1, name: 1, value: [4, 6, 7, 8]},
                 {id: 2, name: 2, value: [4, 5, 2, 9]},
@@ -65,11 +98,14 @@ export default {
                 legend: 'none',
                 vAxis: { minValue: 0 },
                 chartArea: { width: '85%', height: '65%' },
+                seriesType: 'bars',
+                series: '',
                 'backgroundColor': {
                     'fill': 'C4C3AA',
                     'opacity': 100
                 },
-            }
+            },
+            chartType: 'ColumnChart'
         }
     }
 }
@@ -105,10 +141,14 @@ export default {
             </ul>
         </div>
         <GChart 
-            type="ColumnChart"
+            :type="chartType"
             :data="chartData"
             :options="chartOptions"
         />
+        <div class="flex items-center mb-2 mr-2">
+            <span class="mr-4 text-second-text">Compare with clocks </span>
+            <input @click="handleComboChart" v-model="isComboChart" id="'vue-checkbox-list-worked-hours-week" type="checkbox" class="w-4 h-4 text-second-text focus:ring-blue-500">
+        </div>
     </div>
 </template>
 

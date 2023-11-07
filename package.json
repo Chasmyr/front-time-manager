@@ -17,6 +17,11 @@
     "vue-google-charts": "^1.1.0",
     "vue-router": "^4.0.13",
     "vue3-easy-data-table": "^1.5.47",
+<<<<<<< HEAD
+=======
+    "vue3-table-lite": "^1.3.9",
+    "vuetable-2": "^2.0.0-beta.4",
+>>>>>>> a24212baa8e76408cd6403938d803cf3b55e2744
     "vuex": "^4.1.0"
   },
   "devDependencies": {

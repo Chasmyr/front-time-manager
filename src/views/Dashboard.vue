@@ -4,20 +4,23 @@ import ChartManager from '../components/chartManager/ChartManager.vue';
 import Header from '../components/header/Header.vue';
 import Sidebar from '../components/sidebar/Sidebar.vue';
 import UserDashboard from '../components/userDashboard/userDashboard.vue';
-import ManagerTable from '../components/userTable/managerTable.vue';
+import ManagerTable from '../components/managerTable/managerTable.vue';
 
 export default {
   name: 'Dashboard',
   components: { Header, Sidebar, UserDashboard, UserDashboard, ChartManager, ManagerTable },
   computed: {
     isDashboard() {
-        return this.$store.state.currentContent === "dashboard" ? true : false
+        return this.$store.state.currentContent === "Dashboard" ? true : false
+    },
+    isTeams() {
+      return this.$store.state.currentContent === "Teams" ? true : false
     },
     isTeams() {
       return this.$store.state.currentContent === "teams" ? true : false
     },
     isGraphs() {
-        return this.$store.state.currentContent === "graphs" ? true : false
+        return this.$store.state.currentContent === "Graphs" ? true : false
     }
   }
 }
@@ -44,6 +47,6 @@ export default {
 
 <style>
 .wrapper {
-    width: 100%;
+    width: 1000px;
 }
 </style>

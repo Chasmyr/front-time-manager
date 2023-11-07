@@ -5,20 +5,18 @@ export default {
   components: {},
   data() {
     return {
-        content: ["dashboard", "teams", "graphs", "employes-dashboard"],
+        content: ["Dashboard", "Teams", "Graphs", "Employes-dashboard"],
         activeClass: 'bg-primary text-second-text',
-        notActiveClass: 'text-graph-bg opacity-70'
+        notActiveClass: 'text-graph-bg opacity-70',
+        userRole: this.$store.state.currUser.role
     }
   },
-  computed: {
-    userRole() {
-        return this.$store.state.currUser.role
-    }
-  },
+  mounted() {
+    console.log(this.userRole)
+  },    
   methods: {
     changeContent(newContent) {
         this.$store.dispatch('changeContent', {newContent: newContent})
-        console.log(this.$store.state.currentContent)
     }
   }
 }
