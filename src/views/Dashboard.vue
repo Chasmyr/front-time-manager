@@ -4,11 +4,11 @@ import ChartManager from '../components/chartManager/ChartManager.vue';
 import Header from '../components/header/Header.vue';
 import Sidebar from '../components/sidebar/Sidebar.vue';
 import UserDashboard from '../components/userDashboard/userDashboard.vue';
-import UserTable from '../components/userTable/userTable.vue';
+import ManagerTable from '../components/userTable/managerTable.vue';
 
 export default {
   name: 'Dashboard',
-  components: { Header, Sidebar, UserDashboard, UserDashboard, UserTable, ChartManager },
+  components: { Header, Sidebar, UserDashboard, UserDashboard, ChartManager, ManagerTable },
   computed: {
     isDashboard() {
         return this.$store.state.currentContent === "dashboard" ? true : false
@@ -33,7 +33,7 @@ export default {
                 <UserDashboard />
             </div>
             <div v-if="isTeams" class="w-full mt-12">
-              <UserTable/>
+              <ManagerTable/>
             </div>
             <div v-if="isGraphs" class="w-full mt-12">
                 <ChartManager />
