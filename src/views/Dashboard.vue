@@ -10,10 +10,10 @@ export default {
   components: { Header, Sidebar, UserDashboard, UserDashboard, ChartManager },
   computed: {
     isDashboard() {
-        return this.$store.state.currentContent === "dashboard" ? true : false
+        return this.$store.state.currentContent === "Dashboard" ? true : false
     },
     isGraphs() {
-        return this.$store.state.currentContent === "graphs" ? true : false
+        return this.$store.state.currentContent === "Graphs" ? true : false
     }
   }
 }

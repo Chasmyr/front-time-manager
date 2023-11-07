@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
     state () {
         return {
-            currentContent: "dashboard",
+            currentContent: "Dashboard",
             token: null,
             isAuth: false,
             currUser: {
@@ -11,7 +11,8 @@ export default createStore({
                 "username": null,
                 "email": null,
                 "role": null,
-                "clock": null
+                "clock": null,
+                "workingtimes": null
             },
             currWeekDisplayed: null
         }
@@ -26,8 +27,9 @@ export default createStore({
             state.currUser.username = payload.username 
             state.currUser.email = payload.email
             state.currUser.role = payload.role
-            state.token = payload.token
             state.currUser.clock = payload.clock
+            state.currUser.workingtimes = payload.workingTimes
+            state.token = payload.token
         },
         setCurrWeek(state, payload) {
             state.currWeekDisplayed = payload

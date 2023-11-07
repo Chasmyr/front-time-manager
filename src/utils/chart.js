@@ -25,21 +25,20 @@ export const workingTimeDataFormat = (workingtimes, days) => {
             daysOfTheWeek.push(new Date(d))
         }
     }
-    daysOfTheWeek.map((day) => {
-        workingtimes.map((w) => {
-            if(new Date(w.start).getDate() === new Date(day).getDate() && new Date(w.start).getDay() === new Date(day).getDay() ) {
-                let d = new Date(day)
-                let ds = nameOfDays[d.getDay()]
-                let s = hoursToInt(w.start.split('T')[1])
-                let e = hoursToInt(w.end.split('T')[1])
-                result.push([
-                    ds, s, e, s, e, customToolTip(s, e, d)
-                ])
-            }
+    if(workingtimes.length > 0) {
+        daysOfTheWeek.map((day) => {
+            workingtimes.map((w) => {
+                if(new Date(w.start).getDate() === new Date(day).getDate() && new Date(w.start).getDay() === new Date(day).getDay() ) {
+                    let d = new Date(day)
+                    let ds = nameOfDays[d.getDay()]
+                    let s = hoursToInt(w.start.split('T')[1])
+                    let e = hoursToInt(w.end.split('T')[1])
+                    result.push([
+                        ds, s, e, s, e, customToolTip(s, e, d)
+                    ])
+                }
+            })
         })
-    })
-
-    if(result.length > 1) {
         return result
     } else {
         nameOfDays.map((name) => {
@@ -48,6 +47,5 @@ export const workingTimeDataFormat = (workingtimes, days) => {
             ])
         })
         return result
-    }
-        
+    }       
 }

@@ -3,7 +3,7 @@
 import { GChart } from 'vue-google-charts'
 import { workingTimeDataFormat } from '../../utils/chart'
 import { getWeek, getWeekFromDate } from '../../utils/date'
-import { ApiGet } from '../../utils/api'
+import { ApiGet, ApiPost } from '../../utils/api'
 
 export default {
   name: 'workingtime',
@@ -29,27 +29,15 @@ export default {
         this.isLoaded = true
       }
     },
-    handleDatePicker(e) {
+    async handleDatePicker(e) {
       this.isLoaded = false
       let formatedDate = getWeekFromDate(e.target.value)
       let newUrl = formatedDate['url']
-      let resData = [
-            {
-                "start": "2023-10-27T12:34:56",
-                "end": "2023-10-27T19:34:56"
-            },
-            {
-                "start": "2023-10-28T12:00:56",
-                "end": "2023-10-28T18:30:56"
-            },
-            {
-                "start": "2023-11-01T13:30:56",
-                "end": "2023-11-01T19:34:56"
-            }
-        ]
+      let user = this.$store.state.currUser.id
+      let res = await ApiGet(`/workingtimes/${user}?${newUrl}`)
       // let resData = ApiGet(`/workingtimes/${this.$store.state.currUser.id}/${newUrl}`)
       // ici ajoutez logique de call l'api pour changer les valeurs du datepicker
-      let toDisplay = workingTimeDataFormat(resData, formatedDate['days'])
+      let toDisplay = workingTimeDataFormat(res, formatedDate['days'])
       this.chartData = toDisplay
       this.$store.dispatch('changeWeek', formatedDate['week']).then(() => {
           this.isLoaded = true
@@ -103,7 +91,9 @@ export default {
     />
   </div>
   <div v-else>
-      <span>Loading...</span>
+      <div class="flex justify-between items-center">
+        <span>Loading...</span>
+      </div>
   </div>
 </template>
 

@@ -17,13 +17,14 @@ export default {
                 this.endHour = formatDisplayDate(toRaw(this.$store.state.currUser.clock.end))
             }
             this.startHour = formatDisplayDate(toRaw(this.$store.state.currUser.clock.start))
+            this.isLoaded = true
         }
     },
     data() {
         return {
             endHour: '',
             startHour: '' ,
-            isLoaded: true
+            isLoaded: false
         }
     },
     methods: {
