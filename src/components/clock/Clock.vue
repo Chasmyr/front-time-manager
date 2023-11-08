@@ -60,14 +60,14 @@ export default {
     <div class="w-4/12 h-56 px-6 py-4 bg-clockbg rounded-3xl shadow flex flex-col justify-between" tabindex="0" aria-label="Clock timer">
         <h2 class="m-0 text-2xl font-bold tracking-tight text-second-text">Clock</h2>
         <div class="flex justify-center items-center flex-col" v-if="isLoaded && clock">
-            <span class="text-gray text-2xl mb-2">{{ clock.status ? 'Started at :' : 'Ended :' }}</span>
+            <span class="text-gray text-2xl mb-2" tabindex="0" :aria-label="clock.status ? 'Time start at :' + startHour.toLocaleString() : 'Time stop at :' + endHour.toLocaleString() ">{{ clock.status ? 'Started at :' : 'Ended :' }}</span>
             <span class="text-second-text text-xl">{{ clock.status ? startHour : endHour }}</span>
         </div>
         <div v-else class="flex justify-center items-center flex-col">
             <span class="text-gray text-sm mb-2">Start the timer</span>
         </div>
         <div class="flex justify-center items-center" v-if="clock">
-            <button @click="handleClock" class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text" aria-label="Start the timer">{{ clock.status ? 'stop': 'start' }}</button>
+            <button @click="handleClock" class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text" :aria-label="clock.status ? 'stop the timer' : 'start the timer'">{{ clock.status ? 'stop': 'start' }}</button>
         </div>
         <div class="flex justify-center items-center" v-else>
             <button @click="handleClock" class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text">start</button>
