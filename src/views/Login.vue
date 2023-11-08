@@ -72,11 +72,4 @@ export default {
 </template>
 
 <style>
-<<<<<<< HEAD
-.wrapper {
-    width: 1000px;
-}
 </style>
-=======
-</style>
->>>>>>> c5560bf72f88ca1052e816a3d406b95f2d7c117b

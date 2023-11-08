@@ -14,7 +14,7 @@ export default {
   },
   mounted() {
     console.log(this.userRole)
-  },    
+  },
   methods: {
     changeContent(newContent) {
         this.$store.dispatch('changeContent', {newContent: newContent})
@@ -36,7 +36,7 @@ export default {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-        </button>
+        </div>
         <!-- ajouter ici les actions en fonction du status utilisateur -->
         <button v-if="userRole != null && (userRole === 'manager' || userRole === 'general_manager')" @click="changeContent(content[1])" v-bind:class="[ this.$store.state.currentContent === content[1] ? activeClass : notActiveClass ]" class="[&>*]:w-8 [&>*]:h-8 [&>*]:cursor-pointer mb-12 rounded-full h-10 w-10 flex justify-center items-center" aria-label="Teams management" >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
