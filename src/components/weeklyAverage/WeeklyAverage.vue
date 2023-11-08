@@ -45,7 +45,7 @@ export default {
             // il faut fetch toutes les données relative a la range en utilisant les semaines
             // puis les trier par team
             // puis en faire la moyenne
-            // puis renvoyer un tableau de valeur 
+            // puis renvoyer un tableau de valeur
         },
         handleComboChart(e) {
             this.isComboChart = !this.isComboChart
@@ -125,13 +125,13 @@ export default {
                 <div class="relative">
                     <input v-model="dateRangeEnd" name="end" type="date" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 p-1.5" placeholder="Select date end" aria-label="Select end date">
                 </div>
-                <button @click="handleDatePicker" type="button" class="ml-2 text-white bg-second-text focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center" aria-label="Valider">
+                <button @click="handleDatePicker" type="button" class="ml-2 text-white bg-second-text focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center" aria-label="Validate">
                     <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                     </svg>
                 </button>
             </div>
-            <ul class="items-center w-full text-sm font-medium bg-graph-bg-2 sm:flex">
+            <ul class="items-center w-full text-sm font-medium bg-graph-bg-2 sm:flex" tabindex="0" aria-label="Checkbox by team, press space to select">
                 <li class="w-2/12" v-for="(team, index) in teams">
                     <div class="flex items-center pl-3">
                         <input @click="handleCheckbox" v-model="teamsToDisplay" :id="'vue-checkbox-list-week' + team.id" type="checkbox" :value="team.id" class="w-4 h-4 text-second-text focus:ring-blue-500" :disabled="index === 0 && 'disabled'">
@@ -140,7 +140,7 @@ export default {
                 </li>
             </ul>
         </div>
-        <GChart 
+        <GChart
             :type="chartType"
             :data="chartData"
             :options="chartOptions"

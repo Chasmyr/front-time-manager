@@ -59,9 +59,9 @@ export default {
 <template>
     <header class="flex justify-between items-center max-w-7xl m-8">
         <div class="flex justify-between items-center">
-            <div class="text-primary flex justify-center items-center rounded-full mr-12 p-2 text-3xl font-semibold w-11 h-11 border border-solid">
+            <button class="text-primary flex justify-center items-center rounded-full mr-12 p-2 text-3xl font-semibold w-11 h-11 border border-solid" tabindex="0" aria-label="Go to dashboard">
                 <span @click="handleNav" class="cursor-pointer">G</span>
-            </div>
+            </button>
             <div>
                 <h1 class="m-0 text-3xl font-normal text-white">{{ this.$store.state.currentContent }}</h1>
             </div>
