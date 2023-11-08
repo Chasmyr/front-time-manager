@@ -16,7 +16,8 @@ export default createStore({
             },
             currWeekDisplayed: null,
             usersList: null,
-            isNavOpen: false
+            isNavOpen: false,
+            userFocus: null
         }
     },
     mutations: {
@@ -38,7 +39,7 @@ export default createStore({
             state.currWeekDisplayed = payload
         },
         resetState(state) {
-            state.currentContent = 'dashboard'
+            state.currentContent = 'Dashboard'
             state.token = null
             state.isAuth = false
             state.currUser = {
@@ -46,15 +47,26 @@ export default createStore({
                 "username": null,
                 "email": null,
                 "role": null,
-                "clock": null
+                "clock": null,
+                "workingtimes": null
             },
-            state.currWeekDisplayed = null
+            state.currWeekDisplayed = null,
+            state.usersList = null,
+            state.isNavOpen = false,
+            state.userFocus = null
         },
         setClock(state, payload) {
             state.currUser.clock = payload
         },
         setNav(state) {
             state.isNavOpen = !state.isNavOpen
+        },
+        setUserFocus(state, payload) {
+            state.userFocus = payload
+        },
+        setUpdateUser(state, payload) {
+            state.currUser.username = payload.username 
+            state.currUser.email = payload.email
         }
     },
     actions: {
@@ -67,14 +79,20 @@ export default createStore({
         changeWeek ({ commit }, payload) {
             commit('setCurrWeek', payload)
         },
-        logout ({ commit }, payload) {
-            commit('resetState', payload)
+        logout ({ commit }) {
+            commit('resetState')
         },
         changeClock ({ commit }, payload) {
             commit('setClock', payload)
         },
         changeNav ({ commit }) {
             commit('setNav')
+        },
+        changeFocus ({ commit }, payload) {
+            commit('setUserFocus', payload)
+        },
+        changeUpdateUser ({ commit }, payload) {
+            commit('setUpdateUser', payload)
         }
     }
 })

@@ -32,7 +32,7 @@ export default {
             this.isLoaded = false
             // vérifie si le store est bien initialiser
             if (this.$store.state.currUser.clock !== null) {
-                let res = await ApiGet(`/clocks/${this.$store.state.currUser.id}`)
+                let res = await ApiGet(`/clocks/${this.$store.state.currUser.id}`, this.$store.state.token)
                 this.$store.dispatch('changeClock', res).then(() => {
                     if(this.$store.state.currUser.clock.end !== null) {
                         this.endHour = formatDisplayDate(toRaw(this.$store.state.currUser.clock.end))
@@ -41,7 +41,14 @@ export default {
                     this.isLoaded = true
                 })
             } else {
-                let res = await ApiGet(`/clocks/${this.$store.state.currUser.id}`)
+                let res = await ApiGet(`/clocks/${this.$store.state.currUser.id}`, this.$store.state.token)
+                this.$store.dispatch('changeClock', res).then(() => {
+                    if(this.$store.state.currUser.clock.end !== null) {
+                        this.endHour = formatDisplayDate(toRaw(this.$store.state.currUser.clock.end))
+                    }
+                    this.startHour = formatDisplayDate(toRaw(this.$store.state.currUser.clock.start))
+                    this.isLoaded = true
+                })
             }
         }
     }

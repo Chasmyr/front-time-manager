@@ -35,7 +35,7 @@ export default {
       let formatedDate = getWeekFromDate(e.target.value)
       let newUrl = formatedDate['url']
       let user = this.$store.state.currUser.id
-      let res = await ApiGet(`/workingtimes/${user}?${newUrl}`)
+      let res = await ApiGet(`/workingtimes/${user}?${newUrl}`, this.$store.state.token)
       let toDisplay = workingTimeDataFormat(res, formatedDate['days'])
       this.chartData = toDisplay
       this.$store.dispatch('changeWeek', formatedDate['week']).then(() => {

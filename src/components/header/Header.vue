@@ -1,5 +1,5 @@
 <script>
-import { ApiPut } from '../../utils/api'
+import { ApiPut, ApiDelete } from '../../utils/api'
 import { firstLetterUpper } from '../../utils/utils'
 
 
@@ -22,7 +22,7 @@ export default {
     }
   },
   methods: {
-    updateUser() {
+    async updateUser() {
         let newData = {}
         if(this.emailForm !== '') {
             newData['email'] = this.emailForm
@@ -31,12 +31,15 @@ export default {
             newData['username'] = this.usernameForm
         }
         if(Object.keys(newData).length > 0) {
-            let res = ApiPut(`/users/${this.$store.state.currUser.id}`, newData)
-            console.log(res)
+            let res = await ApiPut(`/users/${this.$store.state.currUser.id}`, newData, this.$store.state.token)
+            this.$store.dispatch('changeUpdateUser', res).then(() => {
+                this.modalOpen = false
+            })
         }
     },
-    deleteUser() {
-        console.log('delete')
+    async deleteUser() {
+        let res = await ApiDelete(`/users/${this.$store.state.currUser.id}`, this.$store.state.token)
+        this.$store.dispatch('logout')
     },
     logout() {
         this.$store.dispatch('logout').then(() => this.$router.push('/login'))
@@ -57,7 +60,7 @@ export default {
     <header class="flex justify-between items-center max-w-7xl m-8">
         <div class="flex justify-between items-center"> 
             <div class="text-primary flex justify-center items-center rounded-full mr-12 p-2 text-3xl font-semibold w-11 h-11 border border-solid">
-                <span @click="handleNav">G</span>
+                <span @click="handleNav" class="cursor-pointer">G</span>
             </div>
             <div>
                 <h1 class="m-0 text-3xl font-normal text-white">{{ this.$store.state.currentContent }}</h1>
