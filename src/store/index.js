@@ -3,20 +3,21 @@ import { createStore } from "vuex";
 export default createStore({
     state () {
         return {
-            currentContent: "graphs",
+            currentContent: "Dashboard",
             token: null,
-            isAuth: true,
+            isAuth: false,
             currUser: {
-                "id": 1,
-                "username": "Filip",
-                "email": "test@test.com",
-                "role": "general_manager",
-                "clock": {
-                    "start": "2023-10-26 08:00",
-                    "isClocking": false
-                }
+                "id": null,
+                "username": null,
+                "email": null,
+                "role": null,
+                "clock": null,
+                "workingtimes": null
             },
-            currWeekDisplayed: null
+            currWeekDisplayed: null,
+            usersList: null,
+            isNavOpen: false,
+            userFocus: null
         }
     },
     mutations: {
@@ -28,21 +29,70 @@ export default createStore({
             state.currUser.id = payload.id
             state.currUser.username = payload.username 
             state.currUser.email = payload.email
+            state.currUser.role = payload.role
+            state.currUser.clock = payload.clock
+            state.currUser.workingtimes = payload.workingTimes
             state.token = payload.token
+            state.currentContent = "Dashboard"
         },
         setCurrWeek(state, payload) {
             state.currWeekDisplayed = payload
+        },
+        resetState(state) {
+            state.currentContent = 'Dashboard'
+            state.token = null
+            state.isAuth = false
+            state.currUser = {
+                "id": null,
+                "username": null,
+                "email": null,
+                "role": null,
+                "clock": null,
+                "workingtimes": null
+            },
+            state.currWeekDisplayed = null,
+            state.usersList = null,
+            state.isNavOpen = false,
+            state.userFocus = null
+        },
+        setClock(state, payload) {
+            state.currUser.clock = payload
+        },
+        setNav(state) {
+            state.isNavOpen = !state.isNavOpen
+        },
+        setUserFocus(state, payload) {
+            state.userFocus = payload
+        },
+        setUpdateUser(state, payload) {
+            state.currUser.username = payload.username 
+            state.currUser.email = payload.email
         }
     },
     actions: {
         changeContent ({ commit },payload) {
             commit('setCurrentContent', payload)
         },
-        signIn ({ commit }, payload) {
+        login ({ commit }, payload) {
             commit('setSignIn', payload)
         },
         changeWeek ({ commit }, payload) {
             commit('setCurrWeek', payload)
+        },
+        logout ({ commit }) {
+            commit('resetState')
+        },
+        changeClock ({ commit }, payload) {
+            commit('setClock', payload)
+        },
+        changeNav ({ commit }) {
+            commit('setNav')
+        },
+        changeFocus ({ commit }, payload) {
+            commit('setUserFocus', payload)
+        },
+        changeUpdateUser ({ commit }, payload) {
+            commit('setUpdateUser', payload)
         }
     }
 })
