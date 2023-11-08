@@ -61,7 +61,7 @@ export default {
           ticks: [6, 8, 10, 12, 14, 16, 18, 20]
         },
         candlestick: {
-          fallingColor: { strokeWidth: 0, fill: '#FFC28E' }
+          fallingColor: { strokeWidth: 0, fill: '#343434' }
         }
       }
     }
@@ -77,7 +77,7 @@ export default {
 
 <template>
   <div v-if="isLoaded">
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center" tabindex="0" aria-label="Workingtime graph">
       <span class="text-second-text ml-2 text-2xl font-bold">Week {{ this.$store.state.currWeekDisplayed }}</span> 
       <div class="relative w-32">
         <input datepicker v-model="datepicker" type="date" @input="handleDatePicker" class="bg-second-text text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date">

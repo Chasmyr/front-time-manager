@@ -20,7 +20,7 @@ export default {
                         })
                     }
                 })
-                
+
                 this.teamsAlreadyDisplayed.push(parseInt(e.target.value))
             } else {
                 if(this.teamsAlreadyDisplayed.length > 1) {
@@ -93,7 +93,7 @@ export default {
                 ['2',  6],
                 ['3',  4],
                 ['4',  12]
-            ],  
+            ],
             chartOptions: {
                 legend: 'none',
                 vAxis: { minValue: 0 },
@@ -114,7 +114,7 @@ export default {
 </script>
 
 <template>
-    <div class="w-6/12 h-62 p-3 bg-graph-bg-2 rounded-3xl shadow flex flex-col">
+    <div class="w-6/12 h-62 p-3 bg-graph-bg-2 rounded-3xl shadow flex flex-col" aria-label="Graph with weekly average hours worked by teams" tabindex="0">
         <div class="flex flex-col mx-2">
             <span class="m-0 mb-2 text-xl font-bold tracking-tight text-second-text">Weekly average hours worked by teams :</span>
             <div date-rangepicker class="flex items-center mr-4 justify-between mb-1">
