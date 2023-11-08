@@ -56,3 +56,26 @@ export const workingTimeDataFormat = (workingtimes, days) => {
         return result
     }   
 }
+
+export const formatDataDailyAverage = () => {
+    
+    // il faut renvoyer deux objets, l'un qui sert de data stocker et l'autre qui sert de data de base de la team 1
+    let teams = [
+        {id: 1, name: 1, value: [4, 6, 7, 8]},
+        {id: 2, name: 2, value: [4, 5, 2, 9]},
+        {id: 3, name: 3, value: [7, 4, 5, 4]},
+        {id: 4, name: 4, value: [3, 2, 3, 2]}
+    ]
+
+    let chartData = [
+        ['Days', 'Hours worked on average'],
+        ['2013', 2],
+        ['2014', 4],
+        ['2015', 6],
+        ['2016', 8]
+    ]
+}
+
+export const formatDataWeeklyAverage = () => {
+
+}

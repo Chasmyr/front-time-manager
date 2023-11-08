@@ -1,15 +1,17 @@
 <script>
 
+import Clock from '../clock/Clock.vue';
+import Summary from '../summary/Summary.vue';
+import Random from '../random/Random.vue'
 import Workingtime from '../workingtime/Workingtime.vue';
+import DashboardGraph from '../dashboardGraph/DashboardGraph.vue';
 import { customToolTip, workingTimeDataFormat } from '../../utils/chart'
 import { ApiGet, ApiPost } from '../../utils/api';
 import { getWeekFromDate } from '../../utils/date'
 
 export default {
     name: 'EmployeeChart',
-    components: {
-        Workingtime
-    },
+    components: { Clock, Summary, Random, Workingtime, DashboardGraph },
     mounted() {
         this.getAllUsers().then(() => {
             this.usersList = this.$store.state.usersList
@@ -35,21 +37,29 @@ export default {
             isError: false,
             errorMessage: '',
             usersList: null,
-            userIdView: null
+            userIdView: null,
+            isUserDashboard: false,
+            bgColor2: '#BFB293',
         }
     },
     methods: {
         async getAllUsers() {
-            this.$store.state.usersList = await ApiGet('/users')
+            this.$store.state.usersList = await ApiGet('/users', this.$store.state.token)
         },
         async employeeView(e) {
+            this.isInitialized = false
             this.userIdView = e.target.value
             let formatedDate = getWeekFromDate(new Date())
             let newUrl = formatedDate['url']
-            let res = await ApiGet(`/workingtimes/${this.userIdView}?${newUrl}`)
+            let res = await ApiGet(`/workingtimes/${this.userIdView}?${newUrl}`, this.$store.state.token)
             let toDisplay = workingTimeDataFormat(res, formatedDate['days'])
             this.chartData = toDisplay
             this.$store.dispatch('changeFocus', this.userIdView)
+            if(this.isUserDashboard) {
+                this.$store.dispatch('changeFocusDashboard').then(() => {
+                        this.isUserDashboard = false
+                })
+            }
             this.isInitialized = true
         },
         modalOpener() {
@@ -62,15 +72,25 @@ export default {
             if(this.modalDatepicker !== null) {
                 if(this.modalEndHour !== null && this.modalStartHour !== null) {
                     if(this.modalEndHour > this.modalStartHour) {
-                        let start = `${this.modalDatepicker}T${this.modalStartHour}:00:00`
-                        let end = `${this.modalDatepicker}T${this.modalEndHour}:00:00`
+                        let start = ''
+                        let end = ''
+                        if (this.modalStartHour < 10) {
+                            start = `${this.modalDatepicker}T0${this.modalStartHour}:00:00`
+                        } else {
+                            start = `${this.modalDatepicker}T${this.modalStartHour}:00:00`
+                        }
+                        if (this.modalEndHour < 10) {
+                            end = `${this.modalDatepicker}T0${this.modalEndHour}:00:00`
+                        } else {
+                            end = `${this.modalDatepicker}T${this.modalEndHour}:00:00`
+                        }
                         let body = {
                             start: start,
                             end: end,
                         }
-                        let userId = this.$store.state.userFocus
-                        let res = await ApiPost(`/workingtimes/${userId}`, body)
-                        console.log(res)
+                        let userId = this.$store.state.userFocus.id
+                        let res = await ApiPost(`/workingtimes/${userId}`, body, this.$store.state.token)
+                        this.modalOpen = false
                     } else if (this.modalEndHour < this.modalStartHour) {
                         // display error msg
                         this.errorMessage = 'End hour must be after the start one.'
@@ -82,8 +102,19 @@ export default {
                 this.isError = true
             }
         },
-        viewEmployeeDashboard() {
-
+        async viewEmployeeDashboard() {
+            if(!this.isUserDashboard) {
+                let res = await ApiGet(`/users/${this.$store.state.userFocus.id}`, this.$store.state.token)
+                this.$store.dispatch('changeUserFocus', res).then(() => {
+                    this.$store.dispatch('changeFocusDashboard').then(() => {
+                        this.isUserDashboard = true
+                    })
+                })
+            } else {
+                this.$store.dispatch('changeFocusDashboard').then(() => {
+                    this.isUserDashboard = false
+                })
+            }
         }
     }
 }
@@ -94,7 +125,7 @@ export default {
 </script>
 
 <template>
-    <div class="w-full px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col mt-8 mb-4">
+    <div class="w-full px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col mt-6 mb-8">
         <div class="flex justify-between items-center mb-4">
             <span class="text-second-text ml-2 text-xl font-bold">Employee working hours chart</span>
             <div>
@@ -113,12 +144,22 @@ export default {
                     <button type="button" @click="modalOpener" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-second-text">Create a new working time</button>
                 </div>
                 <div>
-                    <button type="button" @click="viewEmployeeDashboard" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-second-text">View employee dashboard</button>
+                    <button type="button" @click="viewEmployeeDashboard" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-second-text">{{ isUserDashboard ? 'Close employee dashboard' : 'View full employee dashboard' }}</button>
                 </div>
             </div>
         </div>
         <div class="w-full flex justify-center text-second-text text-xl mt-12 mb-12" v-else>
             <span>Select an employee</span>
+        </div>
+        <div v-if="isUserDashboard" class="w-full py-4 bg-summarybg flex flex-col gap-6 mt-4">
+            <div class="flex gap-6">
+                <div class="w-6/12 h-56 px-6 py-4 bg-graph-bg rounded-3xl shadow flex flex-col justify-between">
+                    <Random />
+                </div>
+                <div class="w-full md:w-6/12 h-5- p-3 bg-graph-bg-2 rounded-3xl shadow flex flex-col mb-6 md:mb-0 justify-between">
+                    <Clock />
+                </div>
+            </div>
         </div>
         <div v-if="modalOpen" class="fixed w-full h-full z-50 bg-second-text bg-opacity-50 top-0 left-0 flex justify-center items-center">
             <div class="w-full bg-secondary rounded-3xl sm:max-w-md xl:p-0">
@@ -167,7 +208,7 @@ export default {
                             </div>
                         </form>
                     </div>
-                </div>
+            </div>
         </div>
     </div>
 </template>
