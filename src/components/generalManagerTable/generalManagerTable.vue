@@ -2,6 +2,7 @@
 import 'vue3-easy-data-table/dist/style.css';
 import { ApiGet } from "../../utils/api.js";
 import dataTable from '../dataTable/dataTable.vue';
+import { onlyUsers } from '../../utils/table';
 
 export default {
   components: {
@@ -10,7 +11,8 @@ export default {
 
    data() {
     return {
-      items: [
+      items: [],
+      users: [
         {
           username: "leo",
           email: "leo@exemple.com",
@@ -40,6 +42,12 @@ export default {
           email: "vovo@exemple.com",
           role: "employee",
           teamsId: 2
+        },
+        {
+          username: "Evans",
+          email: "vovo@exemple.com",
+          role: "employee",
+          teamsId: 2
         }
       ],
       managedTeams: [],
@@ -57,16 +65,10 @@ export default {
     }
    },
 
-   methods: {
-
-
-  //   async getUsers() {
-  //     this.loading = true
-  //     this.items = await ApiGet('/users')
-  //     this.loading = false
-  //   },
+   created() {
+    this.items = onlyUsers(this.users, this.$store.state.currUser.username)
    }
-}
+  }
 </script>
 
 <template>

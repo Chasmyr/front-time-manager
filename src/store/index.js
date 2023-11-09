@@ -8,7 +8,7 @@ export default createStore({
             isAuth: true,
             currUser: {
                 "id": null,
-                "username": null,
+                "username": "Evans",
                 "email": null,
                 "role": "general_manager",
                 "managed_teams": [1, 2],
@@ -74,14 +74,14 @@ export default createStore({
             state.userFocus.id = payload
         },
         setUserFocus(state, payload) {
-            state.userFocus.username = payload.username 
-            state.userFocus.email = payload.email 
-            state.userFocus.role = payload.role 
-            state.userFocus.clock = payload.clock 
+            state.userFocus.username = payload.username
+            state.userFocus.email = payload.email
+            state.userFocus.role = payload.role
+            state.userFocus.clock = payload.clock
             state.userFocus.workingtimes = payload.workingTimes
         },
         setUpdateUser(state, payload) {
-            state.currUser.username = payload.username 
+            state.currUser.username = payload.username
             state.currUser.email = payload.email
         },
         setFocusClock(state, payload) {

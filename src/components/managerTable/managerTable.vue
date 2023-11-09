@@ -59,17 +59,7 @@ export default {
     },
     created() {
       this.items = onlyManagedTeams(this.users, this.$store.state.currUser.managed_teams)
-    // this.getUsers()
   },
-     methods: {
-
-
-    //     async getUsers() {
-    //     this.loading = true
-    //     this.items = await ApiGet('/users')
-    //     this.loading = false
-    //     },
-    }
 }
 </script>
 
