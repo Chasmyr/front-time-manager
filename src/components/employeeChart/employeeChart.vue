@@ -1,8 +1,9 @@
 <script>
 
 import Workingtime from '../workingtime/Workingtime.vue';
-import { customToolTip } from '../../utils/chart'
-import { ApiGet } from '../../utils/api';
+import { customToolTip, workingTimeDataFormat } from '../../utils/chart'
+import { ApiGet, ApiPost } from '../../utils/api';
+import { getWeekFromDate } from '../../utils/date'
 
 export default {
     name: 'EmployeeChart',
@@ -48,6 +49,7 @@ export default {
             let res = await ApiGet(`/workingtimes/${this.userIdView}?${newUrl}`)
             let toDisplay = workingTimeDataFormat(res, formatedDate['days'])
             this.chartData = toDisplay
+            this.$store.dispatch('changeFocus', this.userIdView)
             this.isInitialized = true
         },
         modalOpener() {
@@ -56,7 +58,7 @@ export default {
         errorHandler() {
             this.isError = !this.isError
         },
-        handleCreateWorkingtime() {
+        async handleCreateWorkingtime() {
             if(this.modalDatepicker !== null) {
                 if(this.modalEndHour !== null && this.modalStartHour !== null) {
                     if(this.modalEndHour > this.modalStartHour) {
@@ -65,10 +67,10 @@ export default {
                         let body = {
                             start: start,
                             end: end,
-                            userId: this.$store.state.currUser.id
                         }
-                        console.log(body)
-                        // envoyer le code ici puis fermer la modal
+                        let userId = this.$store.state.userFocus
+                        let res = await ApiPost(`/workingtimes/${userId}`, body)
+                        console.log(res)
                     } else if (this.modalEndHour < this.modalStartHour) {
                         // display error msg
                         this.errorMessage = 'End hour must be after the start one.'
@@ -79,24 +81,28 @@ export default {
                 this.errorMessage = 'You must select a date'
                 this.isError = true
             }
+        },
+        viewEmployeeDashboard() {
+
         }
     }
 }
 
 // il faut ajouter les fonctionnalités permettant de voir le working time d'un employé
-// de créer des workintimes et d'aller voir les dashboard user 
+// de créer des workintimes et d'aller voir les dashboard user
 
 </script>
 
 <template>
-    <div class="w-full px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col mt-8 mb-4">
+    <div class="w-full px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col mt-8 mb-4" tabindex="0" aria-label="List of employee working hours">
         <div class="flex justify-between items-center mb-4">
             <span class="text-second-text ml-2 text-xl font-bold">Employee working hours chart</span>
             <div>
                 <select id="employee" @change="employeeView" class="bg-second-text text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-                <option :value="null"></option>
+                <option :value="null" aria-label="Selected country"></option>
                 <option v-for="user in usersList" :value="user.id">{{ user.email }}</option>
                 </select>
+                <!-- Gestion l'accessibilité des injections  -->
             </div>
         </div>
         <div class="w-full flex justify-between items-center" v-if="isInitialized">
@@ -108,7 +114,7 @@ export default {
                     <button type="button" @click="modalOpener" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-second-text">Create a new working time</button>
                 </div>
                 <div>
-                    <button type="button" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-second-text">View employee dashboard</button>
+                    <button type="button" @click="viewEmployeeDashboard" class="text-red-700 hover:text-white border border-tertiary text-tertiary focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-2 hover:text-white hover:bg-second-text">View employee dashboard</button>
                 </div>
             </div>
         </div>
