@@ -9,7 +9,7 @@ export default {
 
 <template>
     <div class="h-60">
-        <span>i</span>
+        <span></span>
     </div>
 </template>
 

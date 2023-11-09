@@ -126,14 +126,15 @@ export default {
 </script>
 
 <template>
-    <div class="w-full px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col mt-6 mb-8">
+    <div class="w-full px-6 py-4 bg-summarybg rounded-3xl shadow flex flex-col mt-6 mb-8" tabindex="0" aria-label="List of employee working hours">
         <div class="flex justify-between items-center mb-4">
             <span class="text-second-text ml-2 text-xl font-bold">Employee working hours chart</span>
             <div>
                 <select id="employee" @change="employeeView" class="bg-second-text text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-                <option :value="null"></option>
+                <option :value="null" aria-label="Selected country"></option>
                 <option v-for="user in usersList" :value="user.id">{{ user.email }}</option>
                 </select>
+                <!-- Gestion l'accessibilité des injections  -->
             </div>
         </div>
         <div class="w-full flex justify-between items-center" v-if="isInitialized">
