@@ -18,7 +18,15 @@ export default createStore({
             currWeekDisplayed: null,
             usersList: null,
             isNavOpen: false,
-            userFocus: null
+            userFocus: {
+                "id": null,
+                "username": null,
+                "email": null,
+                "role": null,
+                "clock": null,
+                "workingtimes": null
+            },
+            isUserFocusDashboard: false
         }
     },
     mutations: {
@@ -62,12 +70,25 @@ export default createStore({
         setNav(state) {
             state.isNavOpen = !state.isNavOpen
         },
+        setUserFocusId(state, payload) {
+            state.userFocus.id = payload
+        },
         setUserFocus(state, payload) {
-            state.userFocus = payload
+            state.userFocus.username = payload.username 
+            state.userFocus.email = payload.email 
+            state.userFocus.role = payload.role 
+            state.userFocus.clock = payload.clock 
+            state.userFocus.workingtimes = payload.workingTimes
         },
         setUpdateUser(state, payload) {
             state.currUser.username = payload.username 
             state.currUser.email = payload.email
+        },
+        setFocusClock(state, payload) {
+            state.userFocus.clock = payload
+        },
+        setIsUserDashboard (state) {
+            state.isUserFocusDashboard = !state.isUserFocusDashboard
         }
     },
     actions: {
@@ -90,10 +111,19 @@ export default createStore({
             commit('setNav')
         },
         changeFocus ({ commit }, payload) {
-            commit('setUserFocus', payload)
+            commit('setUserFocusId', payload)
         },
         changeUpdateUser ({ commit }, payload) {
             commit('setUpdateUser', payload)
+        },
+        changeUserFocus ({ commit }, payload) {
+            commit('setUserFocus', payload)
+        },
+        changeFocusClock ({ commit }, payload) {
+            commit('setFocusClock', payload)
+        },
+        changeFocusDashboard ({ commit }) {
+            commit('setIsUserDashboard')
         }
     }
 })

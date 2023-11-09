@@ -30,6 +30,8 @@ export default {
                     let userData = res.data
                     userData["isAuth"] = true
                     this.$store.dispatch('login', userData).then(() => this.$router.push('/'))
+                } else {
+                    this.isClickable = true
                 }
             }
         },

@@ -8,7 +8,10 @@ export default {
 </script>
 
 <template>
+<<<<<<< HEAD
     <div class="w-4/12 h-56 px-6 py-4 bg-secondary rounded-3xl shadow flex flex-col justify-between" tabindex="0" aria-label="Random Fact">
+=======
+>>>>>>> dba6173e385f221e7b1c9f99d419855c95619f58
         <h2 class="m-0 text-2xl font-bold tracking-tight text-second-text">Random facts</h2>
         <!-- <h2 class="m-0 text-2xl font-bold tracking-tight text-second-text">Clock</h2>
         <div class="flex justify-center items-center flex-col">
@@ -18,7 +21,6 @@ export default {
         <div class="flex justify-center items-center">
             <button class="py-2.5 px-6 rounded-lg text-sm font-medium bg-second-text">Start</button>
         </div> -->
-    </div>
 </template>
 
 <style>
