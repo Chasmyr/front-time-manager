@@ -1,6 +1,7 @@
 import axios from "axios"
 
-let apiUrl = process.env(BASE_URL)
+let apiUrl = JSON.stringify(import.meta.env.VITE_BASE_API_URL)
+console.log(apiUrl)
 
 export const ApiGet = async (url, token) => {
     let isAuthNeeded = false
