@@ -13,9 +13,7 @@ export default {
     name: 'EmployeeChart',
     components: { Clock, Summary, Random, Workingtime, DashboardGraph },
     mounted() {
-        this.getAllUsers().then(() => {
-            this.usersList = this.$store.state.usersList
-        })
+        this.getAllUsers()
     },
     data() {
         return {
@@ -44,7 +42,10 @@ export default {
     },
     methods: {
         async getAllUsers() {
-            this.$store.state.usersList = await ApiGet('/users', this.$store.state.token)
+            let res = await ApiGet('/users', this.$store.state.token)
+            this.$store.dispatch('changeUserList', res).then(() => {
+                this.usersList = this.$store.state.usersList
+            })
         },
         async employeeView(e) {
             this.isInitialized = false

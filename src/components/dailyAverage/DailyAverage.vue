@@ -11,7 +11,10 @@ export default {
         GChart
     },
     mounted() {
-        this.test()
+        let res = formatDataDailyAverage(dataExample.teams, new Date('2023-10-30T09:37:23'))
+        this.teams = res['teams']
+        this.chartData = res['chartData']
+        this.avegareClockHours = res['averageClocks']
     },
     methods: {
         handleCheckbox(e) {
@@ -35,7 +38,7 @@ export default {
                         row.splice(valToErease, 1)
                     })
                     if(this.chartOptions['series'] !== '') {
-                        let newIndex = this.chartData[0].indexOf('average')
+                        let newIndex = this.chartData[0].indexOf('Average hours worked')
                         let newObj = {}
                         newObj[newIndex - 1] = {type: 'line'}
                         this.chartOptions['series'] = newObj
@@ -46,7 +49,6 @@ export default {
         handleDatePicker(e) {
             console.log(this.dateRangeStart)
             console.log(this.dateRangeEnd)
-            this.test()
             // logique du code pour le daily average
             // au clique du btn qui envoie les dates pickers
             // il faut fetch toutes les données relative a cette range
@@ -58,18 +60,19 @@ export default {
             this.isComboChart = !this.isComboChart
             if(this.isComboChart) {
                 // il faut qu'au click cela ajoute les datas necessaire pour transformer ca en combochart
-                let avegareClockHours = ['average', 7, 6, 6, 8]
+                let currClocks = this.avegareClockHours
                 let newData = toRaw(this.chartData)
                 let newSeries = {}
                 newSeries[newData[0].length - 1] = {type: 'line'}
                 this.chartOptions['series'] = newSeries
                 this.chartType = 'ComboChart'
                 this.chartData.map((row, index) => {
-                    newData[index][row.length] = avegareClockHours[index]
+                    newData[index][row.length] = currClocks[index]
                 })
                 this.chartData = newData
+                console.log(this.chartData)
             } else {
-                let indexToErease = this.chartData[0].indexOf('average')
+                let indexToErease = this.chartData[0].indexOf('Average hours worked')
                 let newData = []
                 this.chartData.map((row) => {
                     newData.push(row.filter((data, idx) => idx !== indexToErease))
@@ -77,33 +80,20 @@ export default {
                 this.chartData = newData
                 this.chartOptions['series'] = ''
                 this.chartType = 'ColumnChart'
+                console.log(this.chartData)
             }
-        },
-        test() {
-            let i = formatDataDailyAverage(dataExample.teams, new Date('2023-10-30T09:37:23'))
-            console.log(i)
         }
     },
     data() {
         return {
-            teams: [
-                {id: 1, name: 1, value: [4, 6, 7, 8]},
-                {id: 2, name: 2, value: [4, 5, 2, 9]},
-                {id: 3, name: 3, value: [7, 4, 5, 4]},
-                {id: 4, name: 4, value: [3, 2, 3, 2]}
-            ],
+            teams: [],
             teamsToDisplay: [1],
             teamsAlreadyDisplayed: [1],
             dateRangeStart: '',
             dateRangeEnd: '',
             isComboChart: false,
-            chartData: [
-                ['Days', 'Hours worked on average'],
-                ['2013', 2],
-                ['2014', 4],
-                ['2015', 6],
-                ['2016', 8]
-            ],  
+            chartData: [],  
+            avegareClockHours: [],
             chartOptions: {
                 legend: 'none',
                 vAxis: { minValue: 0 },

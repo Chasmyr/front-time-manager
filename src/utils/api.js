@@ -9,7 +9,7 @@ export const ApiGet = async (url, token) => {
         let config = {
             headers: { Authorization: `Bearer ${token}` }
         }
-        return await axios.get(`http://13.36.211.229/api${url}`, config)
+        return await axios.get(`http://13.36.211.229:4000/api${url}`, config)
         .then(res => res.data)
         .catch(err => console.log(err))
     } else {

@@ -88,6 +88,9 @@ export default createStore({
         },
         setIsUserDashboard (state) {
             state.isUserFocusDashboard = !state.isUserFocusDashboard
+        },
+        setUserList (state, payload) {
+            state.usersList = payload
         }
     },
     actions: {
@@ -123,6 +126,9 @@ export default createStore({
         },
         changeFocusDashboard ({ commit }) {
             commit('setIsUserDashboard')
+        },
+        changeUserList ({ commit }, payload) {
+            commit('setUserList', payload)
         }
     }
 })
