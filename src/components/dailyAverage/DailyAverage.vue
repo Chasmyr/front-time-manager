@@ -2,11 +2,16 @@
 
 import { toRaw } from 'vue'
 import { GChart } from 'vue-google-charts'
+import { dataExample } from '../../utils/data'
+import { formatDataDailyAverage } from '../../utils/chart'
 
 export default {
     name: 'DailyAverage',
     components: {
         GChart
+    },
+    mounted() {
+        this.test()
     },
     methods: {
         handleCheckbox(e) {
@@ -41,6 +46,7 @@ export default {
         handleDatePicker(e) {
             console.log(this.dateRangeStart)
             console.log(this.dateRangeEnd)
+            this.test()
             // logique du code pour le daily average
             // au clique du btn qui envoie les dates pickers
             // il faut fetch toutes les données relative a cette range
@@ -72,6 +78,10 @@ export default {
                 this.chartOptions['series'] = ''
                 this.chartType = 'ColumnChart'
             }
+        },
+        test() {
+            let i = formatDataDailyAverage(dataExample.teams, new Date('2023-10-30T09:37:23'))
+            console.log(i)
         }
     },
     data() {
