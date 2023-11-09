@@ -10,7 +10,7 @@ export default createStore({
                 "id": null,
                 "username": null,
                 "email": null,
-                "role": "manager",
+                "role": "general_manager",
                 "managed_teams": [1, 2],
                 "clock": null,
                 "workingtimes": null

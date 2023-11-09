@@ -7,6 +7,12 @@
       Vue3EasyDataTable,
     },
 
+    data() {
+      return {
+        teams: {}
+      }
+    },
+
     props: {
       items: Array,
       headers: Array,
@@ -17,8 +23,23 @@
     },
 
     methods: {
-      deleteUser(user) {
-        console.log(`deleted ${user}`)
+      displayTeams(user) {
+        this.teams = []
+
+        this.$store.state.currUser.managed_teams.forEach(managedTeam => {
+          if (user.teamsId != managedTeam) {
+            this.teams.push(managedTeam)
+          }
+        })
+        return this.teams
+      },
+
+      displayRoles(user) {
+        if (user.role === 'employee') {
+          return 'manager'
+        } else {
+          return 'employee'
+        }
       }
     }
   }
@@ -47,6 +68,9 @@
         <div v-else>
           <select style="background-color: #B9C1B6;">
             <option>{{ item.teamsId }}</option>
+            <option v-for="team in displayTeams(item)" :key="team">
+              {{ team }}
+            </option>
           </select>
         </div>
       </template>
@@ -54,13 +78,10 @@
         <div v-if="this.$store.state.currUser.role == 'general_manager'">
           <div>
             <select style="background-color: #B9C1B6;">
-              <option>{{ item.role }}</option>
-              <option>manager</option>
+              <option>{{item.role}}</option>
+              <option>{{ displayRoles(item) }}</option>
             </select>
           </div>
-        </div>
-        <div v-else>
-          <p>{{ item.role }}</p>
         </div>
       </template>
       <template #item-action="item">

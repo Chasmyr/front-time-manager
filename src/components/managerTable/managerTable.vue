@@ -11,6 +11,7 @@ export default {
     },
     data() {
         return {
+          teams: [],
           items: [],
           users: [
             {
@@ -60,13 +61,15 @@ export default {
       this.items = onlyManagedTeams(this.users, this.$store.state.currUser.managed_teams)
     // this.getUsers()
   },
-    // methods: {
+     methods: {
+
+
     //     async getUsers() {
     //     this.loading = true
     //     this.items = await ApiGet('/users')
     //     this.loading = false
     //     },
-    // }
+    }
 }
 </script>
 

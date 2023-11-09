@@ -2,7 +2,6 @@
 import 'vue3-easy-data-table/dist/style.css';
 import { ApiGet } from "../../utils/api.js";
 import dataTable from '../dataTable/dataTable.vue';
-import { onlyManagedTeams } from '../../utils/table';
 
 export default {
   components: {
