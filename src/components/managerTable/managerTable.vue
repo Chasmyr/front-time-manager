@@ -13,38 +13,7 @@ export default {
         return {
           teams: [],
           items: [],
-          users: [
-            {
-              username: "leo",
-              email: "leo@exemple.com",
-              role: "employee",
-              teamsId: 1
-            },
-            {
-              username: "dada",
-              email: "dada@exemple.com",
-              role: "employee",
-              teamsId: 2
-            },
-            {
-              username: "mzmz",
-              email: "mzmz@exemple.com",
-              role: "employee",
-              teamsId: 3
-            },
-            {
-              username: "bobo",
-              email: "bobo@exemple.com",
-              role: "employee",
-              teamsId: 1
-            },
-            {
-              username: "vovo",
-              email: "vovo@exemple.com",
-              role: "employee",
-              teamsId: 2
-            }
-          ],
+          users: [],
           headers: [
               {text: "Username", value: "username"},
               {text: "Email", value: "email"},
@@ -57,9 +26,21 @@ export default {
           loading: false
         }
     },
+
+    mounted() {
+      // this.users = init()
+      this.users = this.init()
+   },
+
     created() {
       this.items = onlyManagedTeams(this.users, this.$store.state.currUser.managed_teams)
   },
+
+  methods: {
+    async init() {
+      let res = await ApiGet('/users', this.$store.state.token)
+    }
+  }
 }
 </script>
 

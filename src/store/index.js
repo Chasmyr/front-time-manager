@@ -5,13 +5,12 @@ export default createStore({
         return {
             currentContent: "Dashboard",
             token: null,
-            isAuth: true,
+            isAuth: false,
             currUser: {
                 "id": null,
-                "username": "Evans",
+                "username": null,
                 "email": null,
-                "role": "general_manager",
-                "managed_teams": [1, 2],
+                "role": null,
                 "clock": null,
                 "workingtimes": null
             },
@@ -89,6 +88,9 @@ export default createStore({
         },
         setIsUserDashboard (state) {
             state.isUserFocusDashboard = !state.isUserFocusDashboard
+        },
+        setUserList (state, payload) {
+            state.usersList = payload
         }
     },
     actions: {
@@ -124,6 +126,9 @@ export default createStore({
         },
         changeFocusDashboard ({ commit }) {
             commit('setIsUserDashboard')
+        },
+        changeUserList ({ commit }, payload) {
+            commit('setUserList', payload)
         }
     }
 })
