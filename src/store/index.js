@@ -12,7 +12,8 @@ export default createStore({
                 "email": null,
                 "role": null,
                 "clock": null,
-                "workingtimes": null
+                "workingtimes": null,
+                "managedTeams": null
             },
             currWeekDisplayed: null,
             usersList: null,
@@ -40,6 +41,7 @@ export default createStore({
             state.currUser.role = payload.role
             state.currUser.clock = payload.clock
             state.currUser.workingtimes = payload.workingTimes
+            state.currUser.managedTeams = payload.managedTeams
             state.token = payload.token
             state.currentContent = "Dashboard"
         },
@@ -56,7 +58,8 @@ export default createStore({
                 "email": null,
                 "role": null,
                 "clock": null,
-                "workingtimes": null
+                "workingtimes": null,
+                "managedTeams": null
             },
             state.currWeekDisplayed = null,
             state.usersList = null,
@@ -91,6 +94,9 @@ export default createStore({
         },
         setUserList (state, payload) {
             state.usersList = payload
+        },
+        setManagedTeams (state, payload) {
+            state.currUser.managedTeams = payload
         }
     },
     actions: {
@@ -129,6 +135,9 @@ export default createStore({
         },
         changeUserList ({ commit }, payload) {
             commit('setUserList', payload)
+        },
+        changeManagedTeams ({ commit }, payload) {
+            commit('setManagedTeams', payload)
         }
     }
 })
