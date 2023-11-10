@@ -27,18 +27,16 @@ export default {
         }
     },
 
-    mounted() {
-      // this.users = init()
-      this.users = this.init()
-   },
-
     created() {
-      this.items = onlyManagedTeams(this.users, this.$store.state.currUser.managed_teams)
+      this.init()
   },
 
   methods: {
     async init() {
-      let res = await ApiGet('/users', this.$store.state.token)
+      this.users = await ApiGet('/users', this.$store.state.token)
+      this.items = onlyManagedTeams(this.users, this.$store.state.currUser.managed_teams)
+      console.log(this.users)
+      console.log(this.items)
     }
   }
 }
